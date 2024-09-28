@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmkart</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .slider-container {
+            width: 100%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 10px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .slider {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+        }
+
+        .slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category {
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            padding: 5px 10px;
+            margin-right: 10px;
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .category img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .product-card {
+            background-color: white;
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .products-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .rating {
+            margin: 5px 0;
+        }
+
+        .price {
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: red;
+        }
+
+        .discount {
+            color: green;
+            font-size: 14px;
+        }
+
+        .add-to-cart {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Draggable Slider -->
+    <div class="slider-container">
+        <div class="slider" id="category-slider">
+            <div class="category" data-category="Banana">
+                <img src="https://via.placeholder.com/30x30?text=Banana" alt="Banana">
+                <span>Banana</span>
+            </div>
+            <div class="category" data-category="Apple">
+                <img src="https://via.placeholder.com/30x30?text=Apple" alt="Apple">
+                <span>Apple</span>
+            </div>
+            <div class="category" data-category="Mango">
+                <img src="https://via.placeholder.com/30x30?text=Mango" alt="Mango">
+                <span>Mango</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Products Section -->
+    <section class="featured-products">
+        <h2 id="featured-category-title">Featured Products</h2><br>
+        <div class="products-grid" id="products-grid">
+            <!-- Products will be inserted here dynamically -->
+        </div>
+    </section>
+
+    <script>
+        const products = [
+            { id: 1, name: 'Banana', category: 'Banana', price: '$32.00', oldPrice: '$46.00', discount: '-29%', imgSrc: 'https://via.placeholder.com/150?text=Banana' },
+            { id: 2, name: 'Apple', category: 'Apple', price: '$25.00', oldPrice: '$40.00', discount: '-37%', imgSrc: 'https://via.placeholder.com/150?text=Apple' },
+            { id: 3, name: 'Mango', category: 'Mango', price: '$28.00', oldPrice: '$36.00', discount: '-22%', imgSrc: 'https://via.placeholder.com/150?text=Mango' },
+            { id: 4, name: 'Banana Smoothie', category: 'Banana', price: '$30.00', oldPrice: '$50.00', discount: '-40%', imgSrc: 'https://via.placeholder.com/150?text=Banana+Smoothie' },
+            { id: 5, name: 'Apple Pie', category: 'Apple', price: '$20.00', oldPrice: '$35.00', discount: '-43%', imgSrc: 'https://via.placeholder.com/150?text=Apple+Pie' },
+            { id: 6, name: 'Mango Juice', category: 'Mango', price: '$22.00', oldPrice: '$30.00', discount: '-26%', imgSrc: 'https://via.placeholder.com/150?text=Mango+Juice' },
+        ];
+
+        const productGrid = document.getElementById('products-grid');
+        const categoryTitle = document.getElementById('featured-category-title');
+
+        // Function to display products based on selected category
+        function displayProducts(category) {
+            productGrid.innerHTML = '';
+            categoryTitle.textContent = category + ' Products';
+
+            const filteredProducts = products.filter(product => product.category === category);
+
+            filteredProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product-card');
+                productCard.innerHTML = `
+                    <img src="${product.imgSrc}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <div class="rating">★★★★☆</div>
+                    <div class="price">${product.price} <span class="old-price">${product.oldPrice}</span></div>
+                    <div class="discount">${product.discount}</div>
+                    <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
+                `;
+                productGrid.appendChild(productCard);
+            });
+        }
+
+        // Event listener for category click
+        document.getElementById('category-slider').addEventListener('click', (event) => {
+            const category = event.target.closest('.category')?.getAttribute('data-category');
+            if (category) {
+                displayProducts(category);
+            }
+        });
+
+        // Initial product display for the first category
+        displayProducts('Banana');
+    </script>
+
+</body>
+</html>

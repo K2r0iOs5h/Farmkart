@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Basic styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .product-info {
+            display: flex;
+            align-items: center;
+        }
+        .product-info img {
+            width: 60px;
+            margin-right: 10px;
+        }
+        .quantity-control {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .quantity-control button {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            padding: 5px;
+            cursor: pointer;
+        }
+        .quantity-control button:disabled {
+            cursor: not-allowed;
+        }
+        .total-price {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .remove-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .remove-btn:hover {
+            background-color: #ff1a1a;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Your Cart</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price (₹)</th>
+            <th>Total (₹)</th>
+            <th>Remove</th> <!-- Added header for Remove button -->
+        </tr>
+    </thead>
+    <tbody id="cart-items">
+        <!-- Cart items will be injected here -->
+    </tbody>
+</table>
+
+<p class="total-price">Total: ₹<span id="cart-total">0.00</span></p>
+
+<a href="INDEX.HTML">Continue shopping</a>
+
+<!-- Sample data to simulate products -->
+<script>
+    // Products data
+    const products = {
+        1: { id: 1, name: 'Potato', price: 32.00 },
+        2: { id: 2, name: 'Red Hot Chilies', price: 25.00 },
+        3: { id: 3, name: 'Mangoes', price: 32.00 },
+        4: { id: 4, name: 'Guvava', price: 32.00 },
+        5: { id: 5, name: 'Red Tomatoes', price: 25.00 },
+        6: { id: 6, name: 'Fresh Honey', price: 32.00 },
+        7: { id: 7, name: 'Carrots', price: 32.00 },
+        8: { id: 8, name: 'Corn', price: 32.00 },
+        9: { id: 9, name: 'Banana 1', price: 32.00 },
+       
+    };
+
+    // Initialize cart with two items
+    let cart = JSON.parse(localStorage.getItem('cart')) || {
+        // Carrots with quantity 2
+    };
+
+    // Function to calculate the total price of items in the cart
+    function calculateTotal() {
+        let total = 0;
+        Object.keys(cart).forEach(productId => {
+            total += products[productId].price * cart[productId];
+        });
+        return total.toFixed(2);
+    }
+
+    // Function to render the cart items
+    function renderCart() {
+        const cartItemsElement = document.getElementById('cart-items');
+        cartItemsElement.innerHTML = ''; // Clear the cart first
+
+        Object.keys(cart).forEach(productId => {
+            const product = products[productId];
+            const quantity = cart[productId];
+            const totalPrice = (product.price * quantity).toFixed(2);
+
+            // Create a new row for each cart item
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td class="product-info">
+                    <img src="https://via.placeholder.com/60" alt="${product.name}">
+                    <div>
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-details">Details about ${product.name}</div>
+                    </div>
+                </td>
+                <td>
+                    <div class="quantity-control">
+                        <button class="decrement-btn" data-id="${productId}" ${quantity <= 1 ? 'disabled' : ''}><i class="fa-solid fa-minus"></i></button>
+                        <span>${quantity}</span>
+                        <button class="increment-btn" data-id="${productId}"><i class="fa-regular fa-plus"></i></button>
+                    </div>
+                </td>
+                <td>₹${product.price.toFixed(2)}</td>
+                <td>₹${totalPrice}</td>
+                <td>
+                    <button class="remove-btn" data-id="${productId}">Remove</button>
+                </td>
+            `;
+            cartItemsElement.appendChild(row);
+        });
+
+        // Update the cart total
+        document.getElementById('cart-total').textContent = calculateTotal();
+
+        // Update item count in the navbar (if applicable)
+        updateCartCount();
+    }
+
+    // Function to update the cart count (number of items)
+    function updateCartCount() {
+        const itemCountElement = document.querySelector('.item-count');
+        const totalItems = Object.values(cart).reduce((sum, quantity) => sum + quantity, 0);
+        if (itemCountElement) {
+            itemCountElement.textContent = `${totalItems} item${totalItems !== 1 ? 's' : ''}`;
+        }
+    }
+
+    // Function to handle incrementing the quantity of an item
+    function incrementItem(productId) {
+        cart[productId] = (cart[productId] || 0) + 1;
+        localStorage.setItem('cart', JSON.stringify(cart)); // Save to local storage
+        renderCart(); // Re-render the cart
+    }
+
+    // Function to handle decrementing the quantity of an item
+    function decrementItem(productId) {
+        if (cart[productId] > 1) {
+            cart[productId] -= 1;
+        } else {
+            delete cart[productId]; // Remove the item from cart if quantity is zero
+        }
+        localStorage.setItem('cart', JSON.stringify(cart)); // Save to local storage
+        renderCart(); // Re-render the cart
+    }
+
+    // Function to handle removing an item from the cart
+    function removeItem(productId) {
+        delete cart[productId]; // Remove the item from the cart
+        localStorage.setItem('cart', JSON.stringify(cart)); // Save to local storage
+        renderCart(); // Re-render the cart
+    }
+
+    // Event listener for increment, decrement, and remove buttons
+    document.getElementById('cart-items').addEventListener('click', function(event) {
+        const target = event.target.closest('button');
+        if (!target) return;
+
+        const productId = target.getAttribute('data-id');
+        
+        if (target.classList.contains('increment-btn')) {
+            incrementItem(productId);
+        }
+
+        if (target.classList.contains('decrement-btn')) {
+            decrementItem(productId);
+        }
+
+        if (target.classList.contains('remove-btn')) {
+            removeItem(productId);
+        }
+    });
+
+    // Load the cart on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        renderCart();
+    });
+</script>
+
+</body>
+</html>

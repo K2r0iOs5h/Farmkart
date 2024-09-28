@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draggable Category Slider with Images</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #3b82f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .slider-container {
+            width: 6001px;
+            max-width: 900px;
+            overflow: hidden;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            position: relative;
+        }
+
+        .slider {
+            display: flex;
+            white-space: nowrap;
+            overflow-x: auto;
+            scrollbar-width: none; /* Hide scrollbar in Firefox */
+        }
+
+        .slider::-webkit-scrollbar {
+            display: none; /* Hide scrollbar in Webkit browsers */
+        }
+
+        .category {
+            padding: 10px;
+            background-color: #f3f4f6;
+            border-radius: 30px;
+            margin-right: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            width: 200px;
+        }
+
+        .category img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .category span {
+            flex-grow: 1;
+            text-align: right;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .category:hover {
+            background-color: #e2e8f0;
+            transform: scale(1.05);
+        }
+
+        /* Left and Right Buttons */
+        .nav-btn {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.2);
+            border: none;
+            padding: 10px 20px; /* Increase padding to add space */
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+            z-index: 10; /* Ensure buttons are above content */
+        }
+
+        .nav-btn:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-left {
+            left: -40px; /* Add more space on the left */
+        }
+
+        .nav-right {
+            right: -40px; /* Add more space on the right */
+        }
+
+    </style>
+</head>
+<body>
+   <!-- Top Bar -->
+   <div class="top-bar">
+    <div class="top-left">
+        <span><i class="fa fa-map-marker"></i> Chennai, TamilNadu</span>
+        <span><i class="fa fa-envelope"></i> info@farmkart-site.com</span>
+    </div>
+    <div class="top-right">
+        <a href="#">facebook</a> - 
+        <a href="#">behance</a> - 
+        <a href="#">pinterest</a>
+        <span class="language">EN <i class="fa fa-chevron-down"></i></span>
+    </div>
+</div>
+
+<!-- Main Navbar -->
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="Cabbage Logo">
+            <span>Farmkart</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">Pages</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Pages</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="nav-icons">
+            <!-- Favorites icon -->
+            <a href="#" class="icon"><i class="fas fa-heart"></i></a>
+            <!-- Profile icon -->
+            <a href="#" class="icon"><i class="fas fa-user"></i></a>
+            <!-- Cart icon -->
+            <a href="cart.html" class="icon cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <!-- Cart item count indicator -->
+                <span class="cart-count">0</span>
+            </a>
+            <button class="quote-btn">GET A QUOTE</button>
+        </div>
+    </nav>
+</header>
+    <div class="slider-container">
+        <!-- Left Button -->
+        <button class="nav-btn nav-left">←</button>
+
+        <!-- Draggable Slider -->
+        <div class="slider" id="slider">
+            <div class="category">
+                <img src="https://via.placeholder.com/60x60.png?text=Apple" alt="Apple">
+                <span>Apple</span>
+            </div>
+            <div class="category">
+                <img src="https://via.placeholder.com/60x60.png?text=Banana" alt="Banana">
+                <span>Banana</span>
+            </div>
+            <div class="category">
+                <img src="https://via.placeholder.com/60x60.png?text=Mango" alt="Mango">
+                <span>Mango</span>
+            </div>
+            <div class="category">
+                <img src="https://via.placeholder.com/60x60.png?text=Orange" alt="Orange">
+                <span>Orange</span>
+            </div>
+            <div class="category">
+                <img src="https://via.placeholder.com/60x60.png?text=Strawberry" alt="Strawberry">
+                <span>Strawberry</span>
+            </div>
+            <div class="category">
+                <img src="https://via.placeholder.com/60x60.png?text=Pineapple" alt="Pineapple">
+                <span>Pineapple</span>
+            </div>
+            <div class="category">
+                <img src="https://via.placeholder.com/60x60.png?text=Grapes" alt="Grapes">
+                <span>Grapes</span>
+            </div>
+        </div>
+
+        <!-- Right Button -->
+        <button class="nav-btn nav-right">→</button>
+    </div>
+
+    <script>
+        const slider = document.getElementById('slider');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        // Mouse Down Event
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active');
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+
+        // Mouse Leave Event
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+
+        // Mouse Up Event
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+
+        // Mouse Move Event for Dragging
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;  // Stop the function if the mouse is not clicked
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2; // Scroll-fast
+            slider.scrollLeft = scrollLeft - walk;
+        });
+
+        // Left and Right Buttons for Smooth Scrolling
+        document.querySelector('.nav-left').addEventListener('click', () => {
+            slider.scrollBy({
+                left: -200,
+                behavior: 'smooth'
+            });
+        });
+
+        document.querySelector('.nav-right').addEventListener('click', () => {
+            slider.scrollBy({
+                left: 200,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+</body>
+</html>

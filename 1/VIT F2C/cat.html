@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmkart</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .slider-container {
+            width: 100%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 10px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .slider {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+        }
+
+        .slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category {
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            padding: 5px 10px;
+            margin-right: 10px;
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .category img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .product-card {
+            background-color: white;
+            padding: 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 15px; /* Rounded corners */
+            width: 290px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            position: relative; /* Needed for the discount badge */
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 columns */
+            grid-template-rows: repeat(2, auto); /* 2 rows */
+            gap: 20px; /* Add some space between the grid items */
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px; /* Space between image and text */
+        }
+
+        .product-card h3 {
+            margin: 10px 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .rating {
+            color: #FFA500;
+            margin: 5px 0;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            margin-left: 5px;
+        }
+
+        .discount {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #4CAF50; /* Green color */
+            color: white;
+            padding: 5px 10px;
+            font-size: 12px;
+            border-radius: 5px;
+        }
+
+        .add-to-cart {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%; /* Full width button */
+        }
+
+        .add-to-cart:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+        .rating span {
+            color: #999;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-left">
+        <span><i class="fa fa-map-marker"></i> Chennai, TamilNadu</span>
+        <span><i class="fa fa-envelope"></i> info@farmkart-site.com</span>
+    </div>
+    <div class="top-right">
+        <a href="#">facebook</a> - 
+        <a href="#">behance</a> - 
+        <a href="#">pinterest</a>
+        <span class="language">EN <i class="fa fa-chevron-down"></i></span>
+    </div>
+</div>
+
+<!-- Main Navbar -->
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="Cabbage Logo">
+            <span>Farmkart</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">Pages</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Pages</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="nav-icons">
+            <!-- Favorites icon -->
+            <a href="#" class="icon"><i class="fas fa-heart"></i></a>
+            <!-- Profile icon -->
+            <a href="#" class="icon"><i class="fas fa-user"></i></a>
+            <!-- Cart icon -->
+            <a href="cart.html" class="icon cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <!-- Cart item count indicator -->
+                <span class="cart-count">0</span>
+            </a>
+            <button class="quote-btn">GET A QUOTE</button>
+        </div>
+    </nav>
+</header>
+    <!-- Draggable Slider -->
+    <div class="slider-container">
+        <div class="slider" id="category-slider">
+            <div class="category" data-category="Banana">
+                <img src="https://via.placeholder.com/30x30?text=Banana" alt="Banana">
+                <span>Banana</span>
+            </div>
+            <div class="category" data-category="Apple">
+                <img src="https://via.placeholder.com/30x30?text=Apple" alt="Apple">
+                <span>Apple</span>
+            </div>
+            <div class="category" data-category="Mango">
+                <img src="https://via.placeholder.com/30x30?text=Mango" alt="Mango">
+                <span>Mango</span>
+            </div>
+            <div class="category" data-category="Orange">
+                <img src="https://via.placeholder.com/30x30?text=Orange" alt="Orange">
+                <span>Orange</span>
+            </div>
+            <div class="category" data-category="Strawberry">
+                <img src="https://via.placeholder.com/30x30?text=Strawberry" alt="Strawberry">
+                <span>Strawberry</span>
+            </div>
+            <div class="category" data-category="Pineapple">
+                <img src="https://via.placeholder.com/30x30?text=Pineapple" alt="Pineapple">
+                <span>Pineapple</span>
+            </div>
+            <div class="category" data-category="Grapes">
+                <img src="https://via.placeholder.com/30x30?text=Grapes" alt="Grapes">
+                <span>Grapes</span>
+            </div>
+            <div class="category" data-category="Watermelon">
+                <img src="https://via.placeholder.com/30x30?text=Watermelon" alt="Watermelon">
+                <span>Watermelon</span>
+            </div>
+            <!-- New Categories -->
+            <div class="category" data-category="Blueberry">
+                <img src="https://via.placeholder.com/30x30?text=Blueberry" alt="Blueberry">
+                <span>Blueberry</span>
+            </div>
+            <div class="category" data-category="Peach">
+                <img src="https://via.placeholder.com/30x30?text=Peach" alt="Peach">
+                <span>Peach</span>
+            </div>
+            <div class="category" data-category="Pear">
+                <img src="https://via.placeholder.com/30x30?text=Pear" alt="Pear">
+                <span>Pear</span>
+            </div>
+            <div class="category" data-category="Plum">
+                <img src="https://via.placeholder.com/30x30?text=Plum" alt="Plum">
+                <span>Plum</span>
+            </div>
+            <div class="category" data-category="Cherry">
+                <img src="https://via.placeholder.com/30x30?text=Cherry" alt="Cherry">
+                <span>Cherry</span>
+            </div>
+            <div class="category" data-category="Kiwi">
+                <img src="https://via.placeholder.com/30x30?text=Kiwi" alt="Kiwi">
+                <span>Kiwi</span>
+            </div>
+            <div class="category" data-category="Papaya">
+                <img src="https://via.placeholder.com/30x30?text=Papaya" alt="Papaya">
+                <span>Papaya</span>
+            </div>
+            <div class="category" data-category="Avocado">
+                <img src="https://via.placeholder.com/30x30?text=Avocado" alt="Avocado">
+                <span>Avocado</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Products Section -->
+    <section class="featured-products">
+        <h2 id="featured-category-title">Featured Products</h2><br>
+        <div class="products-grid" id="products-grid">
+            <!-- Products will be inserted here dynamically -->
+        </div>
+    </section>
+
+    <script>
+        const products = [
+            // Banana products
+            { id: 9, name: 'Banana 1', category: 'Banana', price: '$32.00', oldPrice: '$46.00', discount: '-29%', imgSrc: 'https://via.placeholder.com/150?text=Banana1' },
+            { id: 10, name: 'Banana 2', category: 'Banana', price: '$33.00', oldPrice: '$47.00', discount: '-30%', imgSrc: 'https://via.placeholder.com/150?text=Banana2' },
+            { id: 11, name: 'Banana 3', category: 'Banana', price: '$31.00', oldPrice: '$43.00', discount: '-40%', imgSrc: 'https://via.placeholder.com/150?text=Banana2' },
+            { id: 12, name: 'Banana 4', category: 'Banana', price: '$38.00', oldPrice: '$50.00', discount: '-32%', imgSrc: 'https://via.placeholder.com/150?text=Banana2' },
+            { id: 13, name: 'Banana 5', category: 'Banana', price: '$39.00', oldPrice: '$47.00', discount: '-30%', imgSrc: 'https://via.placeholder.com/150?text=Banana2' },
+            { id: 14, name: 'Banana 6', category: 'Banana', price: '$33.00', oldPrice: '$47.00', discount: '-30%', imgSrc: 'https://via.placeholder.com/150?text=Banana2' },
+            { id: 15, name: 'Banana 7', category: 'Banana', price: '$33.00', oldPrice: '$47.00', discount: '-30%', imgSrc: 'https://via.placeholder.com/150?text=Banana2' },
+            { id: 16, name: 'Banana 8', category: 'Banana', price: '$37.00', oldPrice: '$47.00', discount: '-10%', imgSrc: 'https://via.placeholder.com/150?text=Banana2' },
+            
+            // Apple products
+            { id: 17, name: 'Apple 1', category: 'Apple', price: '$25.00', oldPrice: '$30.00', discount: '-17%', imgSrc: 'https://via.placeholder.com/150?text=Apple1' },
+            { id: 18, name: 'Apple 2', category: 'Apple', price: '$26.00', oldPrice: '$32.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text=Apple2' },
+            { id: 19, name: 'Apple 3', category: 'Apple', price: '$25.00', oldPrice: '$30.00', discount: '-17%', imgSrc: 'https://via.placeholder.com/150?text=Apple1' },
+            { id: 20, name: 'Apple 4', category: 'Apple', price: '$26.00', oldPrice: '$32.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text=Apple2' },
+            { id: 21, name: 'Apple 5', category: 'Apple', price: '$25.00', oldPrice: '$30.00', discount: '-17%', imgSrc: 'https://via.placeholder.com/150?text=Apple1' },
+            { id: 22, name: 'Apple 6', category: 'Apple', price: '$26.00', oldPrice: '$32.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text=Apple2' },
+            { id: 23, name: 'Apple 7', category: 'Apple', price: '$25.00', oldPrice: '$30.00', discount: '-17%', imgSrc: 'https://via.placeholder.com/150?text=Apple1' },
+            { id: 24, name: 'Apple 8', category: 'Apple', price: '$26.00', oldPrice: '$32.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text=Apple2' },
+            // Mango products
+            { id: 25, name: 'Mango 1', category: 'Mango', price: '$40.00', oldPrice: '$50.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Mango1' },
+            { id: 26, name: 'Mango 2', category: 'Mango', price: '$42.00', oldPrice: '$52.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text=Mango2' },
+            { id: 27, name: 'Mango 3', category: 'Mango', price: '$40.00', oldPrice: '$50.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Mango1' },
+            { id: 28, name: 'Mango 4', category: 'Mango', price: '$42.00', oldPrice: '$52.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text=Mango2' },
+            { id: 29, name: 'Mango 5', category: 'Mango', price: '$40.00', oldPrice: '$50.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Mango1' },
+            { id: 30, name: 'Mango 6', category: 'Mango', price: '$42.00', oldPrice: '$52.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text=Mango2' },
+            { id: 40, name: 'Mango 7', category: 'Mango', price: '$40.00', oldPrice: '$50.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Mango1' },
+            { id: 41, name: 'Mango 8', category: 'Mango', price: '$42.00', oldPrice: '$52.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text=Mango2' },
+            // Orange products
+            { id: 42, name: 'Orange 1', category: 'Orange', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Orange1' },
+            { id: 43, name: 'Orange 2', category: 'Orange', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Orange2' },
+            { id: 44, name: 'Orange 3', category: 'Orange', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Orange1' },
+            { id: 45, name: 'Orange 4', category: 'Orange', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Orange2' },
+            { id: 46, name: 'Orange 5', category: 'Orange', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Orange1' },
+            { id: 47, name: 'Orange 6', category: 'Orange', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Orange2' },
+            { id: 48, name: 'Orange 7', category: 'Orange', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Orange1' },
+            { id: 49, name: 'Orange 8', category: 'Orange', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Orange2' },
+            // Strawberry products
+            { id: 50, name: 'Strawberry 1', category: 'Strawberry', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry1' },
+            { id: 51, name: 'Strawberry 2', category: 'Strawberry', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry2' },
+            { id: 52, name: 'Strawberry 3', category: 'Strawberry', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry1' },
+            { id: 53, name: 'Strawberry 4', category: 'Strawberry', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry2' },
+            { id: 54, name: 'Strawberry 5', category: 'Strawberry', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry1' },
+            { id: 55, name: 'Strawberry 6', category: 'Strawberry', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry2' },
+            { id: 56, name: 'Strawberry 7', category: 'Strawberry', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry1' },
+            { id: 57, name: 'Strawberry 8', category: 'Strawberry', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry2' },
+
+            { id: 58, name: 'Pineapple 1', category: 'Pineapple', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry1' },
+            { id: 59, name: 'Pineapple 2', category: 'Pineapple', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry2' },
+            { id: 60, name: 'Pineapple 3', category: 'Pineapple', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry1' },
+            { id: 61, name: 'Pineapple 4', category: 'Pineapple', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry2' },
+            { id: 62, name: 'Pineapple 5', category: 'Pineapple', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry1' },
+            { id: 63, name: 'Pineapple 6', category: 'Pineapple', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry2' },
+            { id: 64, name: 'Pineapple 7', category: 'Pineapple', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry1' },
+            { id: 65, name: 'Pineapple 8', category: 'Pineapple', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry2' },
+
+            
+            { id: 66, name: 'Grapes 1', category: 'Grapes', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry1' },
+            { id: 67, name: 'Grapes 2', category: 'Grapes', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry2' },
+            { id: 68, name: 'Grapes 3', category: 'Grapes', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry1' },
+            { id: 69, name: 'Grapes 4', category: 'Grapes', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry2' },
+            { id: 70, name: 'Grapes 5', category: 'Grapes', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry1' },
+            { id: 71, name: 'Grapes 6', category: 'Grapes', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry2' },
+            { id: 72, name: 'Grapes 7', category: 'Grapes', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry1' },
+            { id: 73, name: 'Grapes 8', category: 'Grapes', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry2' },
+
+            
+            { id: 58, name: 'Watermelon 1', category: 'Pineapple', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry1' },
+            { id: 59, name: 'Watermelon 2', category: 'Pineapple', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry2' },
+            { id: 60, name: 'Watermelon 3', category: 'Pineapple', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry1' },
+            { id: 61, name: 'Watermelon 4', category: 'Pineapple', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry2' },
+            { id: 62, name: 'Watermelon 5', category: 'Pineapple', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry1' },
+            { id: 63, name: 'watermelon 6', category: 'Pineapple', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry2' },
+            { id: 64, name: 'Watermelon 7', category: 'Pineapple', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry1' },
+            { id: 65, name: 'Watermelon 8', category: 'Pineapple', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Strawberry2' },
+
+            // New categories products (add similar entries for new categories as needed)
+            { id: 66, name: 'Blueberry 1', category: 'Blueberry', price: '$20.00', oldPrice: '$25.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Blueberry1' },
+            { id: 67, name: 'Blueberry 2', category: 'Blueberry', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Blueberry2' },
+            { id: 68, name: 'Blueberry 3', category: 'Blueberry', price: '$20.00', oldPrice: '$25.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Blueberry1' },
+            { id: 69, name: 'Blueberry 4', category: 'Blueberry', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Blueberry2' },
+            { id: 70, name: 'Blueberry 5', category: 'Blueberry', price: '$20.00', oldPrice: '$25.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Blueberry1' },
+            { id: 71, name: 'Blueberry 6', category: 'Blueberry', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Blueberry2' },
+            { id: 72, name: 'Blueberry 7', category: 'Blueberry', price: '$20.00', oldPrice: '$25.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Blueberry1' },
+            { id: 73, name: 'Blueberry 8', category: 'Blueberry', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Blueberry2' },
+
+            { id: 31, name: 'Peach 1', category: 'Peach', price: '$30.00', oldPrice: '$35.00', discount: '-14%', imgSrc: 'https://via.placeholder.com/150?text=Peach1' },
+            { id: 32, name: 'Peach 2', category: 'Peach', price: '$32.00', oldPrice: '$38.00', discount: '-16%', imgSrc: 'https://via.placeholder.com/150?text=Peach2' },
+            { id: 33, name: 'Pear 1', category: 'Pear', price: '$18.00', oldPrice: '$22.00', discount: '-18%', imgSrc: 'https://via.placeholder.com/150?text=Pear1' },
+            { id: 34, name: 'Pear 2', category: 'Pear', price: '$20.00', oldPrice: '$24.00', discount: '-17%', imgSrc: 'https://via.placeholder.com/150?text=Pear2' },
+            { id: 35, name: 'Plum 1', category: 'Plum', price: '$15.00', oldPrice: '$20.00', discount: '-25%', imgSrc: 'https://via.placeholder.com/150?text=Plum1' },
+            { id: 36, name: 'Plum 2', category: 'Plum', price: '$16.00', oldPrice: '$21.00', discount: '-24%', imgSrc: 'https://via.placeholder.com/150?text=Plum2' },
+            { id: 37, name: 'Cherry 1', category: 'Cherry', price: '$12.00', oldPrice: '$15.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Cherry1' },
+            { id: 38, name: 'Cherry 2', category: 'Cherry', price: '$13.00', oldPrice: '$17.00', discount: '-24%', imgSrc: 'https://via.placeholder.com/150?text=Cherry2' },
+            { id: 39, name: 'Kiwi 1', category: 'Kiwi', price: '$10.00', oldPrice: '$14.00', discount: '-29%', imgSrc: 'https://via.placeholder.com/150?text=Kiwi1' },
+            { id: 40, name: 'Kiwi 2', category: 'Kiwi', price: '$11.00', oldPrice: '$15.00', discount: '-27%', imgSrc: 'https://via.placeholder.com/150?text=Kiwi2' },
+            { id: 41, name: 'Papaya 1', category: 'Papaya', price: '$14.00', oldPrice: '$18.00', discount: '-22%', imgSrc: 'https://via.placeholder.com/150?text=Papaya1' },
+            { id: 42, name: 'Papaya 2', category: 'Papaya', price: '$15.00', oldPrice: '$19.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Papaya2' },
+            { id: 43, name: 'Avocado 1', category: 'Avocado', price: '$16.00', oldPrice: '$20.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Avocado1' },
+            { id: 44, name: 'Avocado 2', category: 'Avocado', price: '$17.00', oldPrice: '$22.00', discount: '-23%', imgSrc: 'https://via.placeholder.com/150?text=Avocado2' }
+        ];
+
+    
+            const productGrid = document.getElementById('products-grid');
+            const categoryTitle = document.getElementById('featured-category-title');
+    
+            // Function to display products based on selected category
+            function displayProducts(category) {
+                productGrid.innerHTML = '';
+                categoryTitle.textContent = category + ' Products';
+    
+                const filteredProducts = products.filter(product => product.category === category);
+    
+                filteredProducts.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.classList.add('product-card');
+                    productCard.innerHTML = `
+                        <img src="${product.imgSrc}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <div class="rating">★★★★☆<span>(24)</span></div>
+                        <div class="price">${product.price} <span class="old-price">${product.oldPrice}</span></div>
+                        <div class="discount">${product.discount}</div>
+                        <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
+                    `;
+                    productGrid.appendChild(productCard);
+                });
+    
+                // Call function to add event listeners after rendering new products
+                addEventListenersToCartButtons();
+            }
+    
+            // Function to add event listeners to "Add to Cart" buttons
+            function addEventListenersToCartButtons() {
+                document.querySelectorAll('.add-to-cart').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const productId = this.getAttribute('data-id');
+                        addToCart(productId);
+                    });
+                });
+            }
+    
+            // Initial load of a category (Banana)
+            displayProducts('Banana');
+    
+            // Slider category click event
+            document.getElementById('category-slider').addEventListener('click', (event) => {
+                const categoryElement = event.target.closest('.category');
+                if (categoryElement) {
+                    const selectedCategory = categoryElement.getAttribute('data-category');
+                    displayProducts(selectedCategory);
+                }
+            });
+    
+            // Array to store the products and their quantities in local storage
+            const cart = JSON.parse(localStorage.getItem('cart')) || {};
+    
+            // Function to update the cart count in the navbar
+            function updateCartCount() {
+                const cartCountElement = document.querySelector('.cart-count');
+                const totalItems = Object.values(cart).reduce((sum, quantity) => sum + quantity, 0);
+                cartCountElement.textContent = totalItems;
+            }
+    
+            // Function to add a product to the cart
+            function addToCart(productId) {
+                // Check if product already in cart
+                if (cart[productId]) {
+                    cart[productId] += 1;
+                } else {
+                    cart[productId] = 1;
+                }
+                // Store the updated cart in local storage
+                localStorage.setItem('cart', JSON.stringify(cart));
+    
+                // Update the cart count
+                updateCartCount();
+            }
+    
+            // Initialize cart count
+            updateCartCount();
+        </script>
+    
+    </script>
+</body>
+</html>

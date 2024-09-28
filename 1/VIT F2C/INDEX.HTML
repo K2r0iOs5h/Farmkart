@@ -44,10 +44,10 @@
                 <!-- Profile icon -->
                 <a href="#" class="icon"><i class="fas fa-user"></i></a>
                 <!-- Cart icon -->
-                <a href="#" class="icon cart-icon">
+                <a href="cart.html" class="icon cart-icon">
                     <i class="fas fa-shopping-cart"></i>
                     <!-- Cart item count indicator -->
-                    <span class="cart-count">2</span>
+                    <span class="cart-count">0</span>
                 </a>
                 <button class="quote-btn">GET A QUOTE</button>
             </div>
@@ -109,8 +109,8 @@
     <h2 class="category-heading">Top Catagories</h2>
     <div class="category-grid">
         <div class="category-item">
-            <img src="/istockphoto-2163995175-612x612-removebg-preview.png" alt="Veggies">
-            <h4>Veggies</h4>
+            <a href="cat.html"><img src="/istockphoto-2163995175-612x612-removebg-preview.png" alt="Veggies">
+                <h4>Veggies</h4></a>
         </div>
 
         <div class="category-item">
@@ -156,7 +156,7 @@
                 $32.00 <span class="old-price">$46.00</span>
             </div>
             <div class="discount">-29%</div>
-            <button class="add-to-cart">Add to Cart</button>
+            <button class="add-to-cart" data-id="1">Add to Cart</button>
         </div>
 
         <div class="product-card">
@@ -170,7 +170,7 @@
                 $25.00 <span class="old-price">$46.00</span>
             </div>
             <div class="discount">-29%</div>
-            <button class="add-to-cart">Add to Cart</button>
+            <button class="add-to-cart" data-id="2">Add to Cart</button>
         </div>
 
         <div class="product-card">
@@ -184,7 +184,7 @@
                 $32.00 <span class="old-price">$46.00</span>
             </div>
             <div class="discount">-29%</div>
-            <button class="add-to-cart">Add to Cart</button>
+            <button class="add-to-cart" data-id="3">Add to Cart</button>
         </div>
 
         <div class="product-card">
@@ -198,7 +198,7 @@
                 $32.00 <span class="old-price">$46.00</span>
             </div>
             <div class="discount">-29%</div>
-            <button class="add-to-cart">Add to Cart</button>
+            <button class="add-to-cart" data-id="4">Add to Cart</button>
         </div>
 
         <div class="product-card">
@@ -212,7 +212,7 @@
                 $32.00 <span class="old-price">$46.00</span>
             </div>
             <div class="discount">-29%</div>
-            <button class="add-to-cart">Add to Cart</button>
+            <button class="add-to-cart" data-id="5">Add to Cart</button>
         </div>
 
         <div class="product-card">
@@ -226,7 +226,7 @@
                 $32.00 <span class="old-price">$46.00</span>
             </div>
             <div class="discount">-29%</div>
-            <button class="add-to-cart">Add to Cart</button>
+            <button class="add-to-cart" data-id="6">Add to Cart</button>
         </div>
 
         <div class="product-card">
@@ -240,7 +240,7 @@
                 $32.00 <span class="old-price">$46.00</span>
             </div>
             <div class="discount">-29%</div>
-            <button class="add-to-cart">Add to Cart</button>
+            <button class="add-to-cart" data-id="7" >Add to Cart</button>
         </div>
 
         <div class="product-card">
@@ -254,7 +254,7 @@
                 $32.00 <span class="old-price">$46.00</span>
             </div>
             <div class="discount">-29%</div>
-            <button class="add-to-cart">Add to Cart</button>
+            <button class="add-to-cart" data-id="8">Add to Cart</button>
         </div>
     </div>
 </section>
@@ -321,6 +321,54 @@
         </div>
     </div>
 </footer>
+
+ <!-- JavaScript code to handle the Add to Cart functionality -->
+ <script>
+  
+
+        // Clear cart for fresh testing
+        localStorage.removeItem('cart'); // Add this line to clear the cart
+    
+        // Array to store the products and their quantities in local storage
+        const cart = JSON.parse(localStorage.getItem('cart')) || {};
+    
+        // Function to update the cart count in the navbar
+        function updateCartCount() {
+            const cartCountElement = document.querySelector('.cart-count');
+            const totalItems = Object.values(cart).reduce((sum, quantity) => sum + quantity, 0);
+            cartCountElement.textContent = totalItems;
+        }
+    
+        // Function to add a product to the cart
+        function addToCart(productId) {
+            // Check if product already in cart
+            if (cart[productId]) {
+                cart[productId] += 1;
+            } else {
+                cart[productId] = 1;
+            }
+            // Store the updated cart in local storage
+            localStorage.setItem('cart', JSON.stringify(cart));
+    
+            // Update the cart count
+            updateCartCount();
+        }
+    
+        // Add event listeners to all "Add to Cart" buttons
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-id');
+                addToCart(productId);
+            });
+        });
+    
+        // Initialize cart count
+        updateCartCount();
+ 
+    
+
+</script>
+
 
 </body>
 </html>
