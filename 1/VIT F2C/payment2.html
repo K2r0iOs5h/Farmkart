@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Payment</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stripe/stripe-js"></script>
+</head>
+<style>
+    body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+input:focus {
+    border-color: #75b246;
+    outline: none;
+}
+
+.payment-methods {
+    margin-bottom: 20px;
+}
+
+.payment-methods div {
+    margin: 5px 0;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #75b246;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #75b246d8;
+}
+
+.hidden {
+    display: none;
+}
+
+#message {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.success {
+    color: #28a745;
+    background-color: #d4edda;
+}
+
+.error {
+    color: #dc3545;
+    background-color: #f8d7da;
+}
+</style>
+<body>
+    <div class="container">
+        <h1>Secure Payment</h1>
+        <form id="payment-form">
+            <div class="form-group">
+                <label for="card-name">Cardholder Name</label>
+                <input type="text" id="card-name" placeholder="John Doe" >
+            </div>
+            <div class="form-group">
+                <label for="card-number">Card Number</label>
+                <div id="card-element"></div>
+            </div>
+            <div class="form-group">
+                <label for="expiry">Expiry Date (MM/YY)</label>
+                <input type="text" id="expiry" placeholder="MM/YY" >
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" placeholder="123" >
+            </div>
+            <div class="form-group">
+                <label for="upi-id">UPI ID</label>
+                <input type="text" id="upi-id" placeholder="example@upi" >
+            </div>
+            <div class="form-group payment-methods">
+                <label>Payment Method:</label>
+                <div>
+                    
+                    <input type="radio" id="card-method" name="payment-method" value="card" checked>
+                    <label for="card-method">Card</label>
+                </div>
+                <div>
+                    <input type="radio" id="upi-method" name="payment-method" value="upi">
+                    <label for="upi-method">UPI</label>
+                </div>
+                <div>
+                    <input type="radio"  id="upi-method" name="payment-method" value="cash on delivery">
+                    <label for="upi-method">cash on delivery</label>
+                </div>
+            </div>
+            <button type="submit">Pay Now</button>
+        </form>
+        <div id="message" class="hidden"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

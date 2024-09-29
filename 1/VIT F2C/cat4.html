@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmkart</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .slider-container {
+            width: 100%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 10px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .slider {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+        }
+
+        .slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category {
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            padding: 5px 10px;
+            margin-right: 10px;
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .category img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .product-card {
+            background-color: white;
+            padding: 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 15px; /* Rounded corners */
+            width: 290px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            position: relative; /* Needed for the discount badge */
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 columns */
+            grid-template-rows: repeat(2, auto); /* 2 rows */
+            gap: 20px; /* Add some space between the grid items */
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px; /* Space between image and text */
+        }
+
+        .product-card h3 {
+            margin: 10px 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .rating {
+            color: #FFA500;
+            margin: 5px 0;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            margin-left: 5px;
+        }
+
+        .discount {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #4CAF50; /* Green color */
+            color: white;
+            padding: 5px 10px;
+            font-size: 12px;
+            border-radius: 5px;
+        }
+
+        .add-to-cart {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%; /* Full width button */
+        }
+
+        .add-to-cart:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+        .rating span {
+            color: #999;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-left">
+        <span><i class="fa fa-map-marker"></i> Chennai, TamilNadu</span>
+        <span><i class="fa fa-envelope"></i> info@farmkart-site.com</span>
+    </div>
+    <div class="top-right">
+        <a href="#">facebook</a> - 
+        <a href="#">behance</a> - 
+        <a href="#">pinterest</a>
+        <span class="language">EN <i class="fa fa-chevron-down"></i></span>
+    </div>
+</div>
+
+<!-- Main Navbar -->
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="Cabbage Logo">
+            <span>Farmkart</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">Pages</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Pages</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="nav-icons">
+            <!-- Favorites icon -->
+            <a href="#" class="icon"><i class="fas fa-heart"></i></a>
+            <!-- Profile icon -->
+            <a href="#" class="icon"><i class="fas fa-user"></i></a>
+            <!-- Cart icon -->
+            <a href="cart.html" class="icon cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <!-- Cart item count indicator -->
+                <span class="cart-count">0</span>
+            </a>
+            <button class="quote-btn">GET A QUOTE</button>
+        </div>
+    </nav>
+</header>
+    <!-- Draggable Slider -->
+    <div class="slider-container">
+        <div class="slider" id="category-slider">
+            <div class="category" data-category="Corn Gluten Meal">
+                <img src="https://via.placeholder.com/30x30?text=Corn Gluten Meal" alt="Corn Gluten Meal">
+                <span>Corn Gluten Meal</span>
+            </div>
+            <div class="category" data-category="Cow Manure">
+                <img src="https://via.placeholder.com/30x30?text=Cow Manure" alt="Cow Manure">
+                <span>Cow Manure</span>
+            </div>
+            <div class="category" data-category=" Chicken Manure ">
+                <img src="https://via.placeholder.com/30x30?text= Chicken Manure " alt=" Chicken Manure ">
+                <span> Chicken Manure </span>
+            </div>
+            <div class="category" data-category="Earthworm Castings">
+                <img src="https://via.placeholder.com/30x30?text=Earthworm Castings" alt="Earthworm Castings">
+                <span>Earthworm Castings</span>
+            </div>
+            <div class="category" data-category="Greensand ">
+                <img src="https://via.placeholder.com/30x30?text=Greensand " alt="Greensand ">
+                <span>Greensand </span>
+            </div>
+          
+        </div>
+    </div>
+
+    <!-- Featured Products Section -->
+    <section class="featured-products">
+        <h2 id="featured-category-title">Featured Products</h2><br>
+        <div class="products-grid" id="products-grid">
+            <!-- Products will be inserted here dynamically -->
+        </div>
+    </section>
+
+    <script>
+        const products = [
+            // Corn Gluten Meal products
+            { id: 369, name: 'Corn Gluten Meal 1', category: 'Corn Gluten Meal', price: '$32.00', oldPrice: '$46.00', discount: '-29%', imgSrc: 'https://via.placeholder.com/150?text=Corn Gluten Meal1' },
+            { id: 370, name: 'Corn Gluten Meal 2', category: 'Corn Gluten Meal', price: '$33.00', oldPrice: '$47.00', discount: '-30%', imgSrc: 'https://via.placeholder.com/150?text=Corn Gluten Meal2' },
+            { id: 371, name: 'Corn Gluten Meal 3', category: 'Corn Gluten Meal', price: '$31.00', oldPrice: '$43.00', discount: '-40%', imgSrc: 'https://via.placeholder.com/150?text=Corn Gluten Meal2' },
+            { id: 372, name: 'Corn Gluten Meal 4', category: 'Corn Gluten Meal', price: '$38.00', oldPrice: '$50.00', discount: '-32%', imgSrc: 'https://via.placeholder.com/150?text=Corn Gluten Meal2' },
+            { id: 373, name: 'Corn Gluten Meal 5', category: 'Corn Gluten Meal', price: '$39.00', oldPrice: '$47.00', discount: '-30%', imgSrc: 'https://via.placeholder.com/150?text=Corn Gluten Meal2' },
+            { id: 374, name: 'Corn Gluten Meal 6', category: 'Corn Gluten Meal', price: '$33.00', oldPrice: '$47.00', discount: '-30%', imgSrc: 'https://via.placeholder.com/150?text=Corn Gluten Meal2' },
+            { id: 375, name: 'Corn Gluten Meal 7', category: 'Corn Gluten Meal', price: '$33.00', oldPrice: '$47.00', discount: '-30%', imgSrc: 'https://via.placeholder.com/150?text=Corn Gluten Meal2' },
+            { id: 376, name: 'Corn Gluten Meal 8', category: 'Corn Gluten Meal', price: '$37.00', oldPrice: '$47.00', discount: '-10%', imgSrc: 'https://via.placeholder.com/150?text=Corn Gluten Meal2' },
+            
+            // Cow Manure products
+            { id: 377, name: 'Cow Manure 1', category: 'Cow Manure', price: '$25.00', oldPrice: '$30.00', discount: '-17%', imgSrc: 'https://via.placeholder.com/150?text=Cow Manure1' },
+            { id: 378, name: 'Cow Manure 2', category: 'Cow Manure', price: '$26.00', oldPrice: '$32.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text=Cow Manure2' },
+            { id: 379, name: 'Cow Manure 3', category: 'Cow Manure', price: '$25.00', oldPrice: '$30.00', discount: '-17%', imgSrc: 'https://via.placeholder.com/150?text=Cow Manure1' },
+            { id: 380, name: 'Cow Manure 4', category: 'Cow Manure', price: '$26.00', oldPrice: '$32.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text=Cow Manure2' },
+            { id: 381, name: 'Cow Manure 5', category: 'Cow Manure', price: '$25.00', oldPrice: '$30.00', discount: '-17%', imgSrc: 'https://via.placeholder.com/150?text=Cow Manure1' },
+            { id: 382, name: 'Cow Manure 6', category: 'Cow Manure', price: '$26.00', oldPrice: '$32.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text=Cow Manure2' },
+            { id: 383, name: 'Cow Manure 7', category: 'Cow Manure', price: '$25.00', oldPrice: '$30.00', discount: '-17%', imgSrc: 'https://via.placeholder.com/150?text=Cow Manure1' },
+            { id: 384, name: 'Cow Manure 8', category: 'Cow Manure', price: '$26.00', oldPrice: '$32.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text=Cow Manure2' },
+            //  Chicken Manure  products
+            { id: 385, name: ' Chicken Manure  1', category: ' Chicken Manure ', price: '$40.00', oldPrice: '$50.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text= Chicken Manure 1' },
+            { id: 386, name: ' Chicken Manure  2', category: ' Chicken Manure ', price: '$42.00', oldPrice: '$52.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text= Chicken Manure 2' },
+            { id: 387, name: ' Chicken Manure  3', category: ' Chicken Manure ', price: '$40.00', oldPrice: '$50.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text= Chicken Manure 1' },
+            { id: 388, name: ' Chicken Manure  4', category: ' Chicken Manure ', price: '$42.00', oldPrice: '$52.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text= Chicken Manure 2' },
+            { id: 389, name: ' Chicken Manure  5', category: ' Chicken Manure ', price: '$40.00', oldPrice: '$50.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text= Chicken Manure 1' },
+            { id: 390, name: ' Chicken Manure  6', category: ' Chicken Manure ', price: '$42.00', oldPrice: '$52.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text= Chicken Manure 2' },
+            { id: 391, name: ' Chicken Manure  7', category: ' Chicken Manure ', price: '$40.00', oldPrice: '$50.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text= Chicken Manure 1' },
+            { id: 392, name: ' Chicken Manure  8', category: ' Chicken Manure ', price: '$42.00', oldPrice: '$52.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text= Chicken Manure 2' },
+            // Earthworm Castings products
+            { id: 393, name: 'Earthworm Castings 1', category: 'Earthworm Castings', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Earthworm Castings1' },
+            { id: 394, name: 'Earthworm Castings 2', category: 'Earthworm Castings', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Earthworm Castings2' },
+            { id: 395, name: 'Earthworm Castings 3', category: 'Earthworm Castings', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Earthworm Castings1' },
+            { id: 396, name: 'Earthworm Castings 4', category: 'Earthworm Castings', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Earthworm Castings2' },
+            { id: 397, name: 'Earthworm Castings 5', category: 'Earthworm Castings', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Earthworm Castings1' },
+            { id: 398, name: 'Earthworm Castings 6', category: 'Earthworm Castings', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Earthworm Castings2' },
+            { id: 399, name: 'Earthworm Castings 7', category: 'Earthworm Castings', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Earthworm Castings1' },
+            { id: 400, name: 'Earthworm Castings 8', category: 'Earthworm Castings', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Earthworm Castings2' },
+            // Greensand  products
+            { id: 401, name: 'Greensand  1', category: 'Greensand ', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Greensand 1' },
+            { id: 402, name: 'Greensand  2', category: 'Greensand ', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Greensand 2' },
+            { id: 403, name: 'Greensand  3', category: 'Greensand ', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Greensand 1' },
+            { id: 404, name: 'Greensand  4', category: 'Greensand ', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Greensand 2' },
+            { id: 405, name: 'Greensand  5', category: 'Greensand ', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Greensand 1' },
+            { id: 406, name: 'Greensand  6', category: 'Greensand ', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Greensand 2' },
+            { id: 407, name: 'Greensand  7', category: 'Greensand ', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Greensand 1' },
+            { id: 408, name: 'Greensand  8', category: 'Greensand ', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Greensand 2' },
+
+           
+         
+        ];
+
+    
+            const productGrid = document.getElementById('products-grid');
+            const categoryTitle = document.getElementById('featured-category-title');
+    
+            // Function to display products based on selected category
+            function displayProducts(category) {
+                productGrid.innerHTML = '';
+                categoryTitle.textContent = category + ' Products';
+    
+                const filteredProducts = products.filter(product => product.category === category);
+    
+                filteredProducts.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.classList.add('product-card');
+                    productCard.innerHTML = `
+                        <img src="${product.imgSrc}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <div class="rating">★★★★☆<span>(24)</span></div>
+                        <div class="price">${product.price} <span class="old-price">${product.oldPrice}</span></div>
+                        <div class="discount">${product.discount}</div>
+                        <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
+                    `;
+                    productGrid.appendChild(productCard);
+                });
+    
+                // Call function to add event listeners after rendering new products
+                addEventListenersToCartButtons();
+            }
+    
+            // Function to add event listeners to "Add to Cart" buttons
+            function addEventListenersToCartButtons() {
+                document.querySelectorAll('.add-to-cart').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const productId = this.getAttribute('data-id');
+                        addToCart(productId);
+                    });
+                });
+            }
+    
+            // Initial load of a category (Corn Gluten Meal)
+            displayProducts('Corn Gluten Meal');
+    
+            // Slider category click event
+            document.getElementById('category-slider').addEventListener('click', (event) => {
+                const categoryElement = event.target.closest('.category');
+                if (categoryElement) {
+                    const selectedCategory = categoryElement.getAttribute('data-category');
+                    displayProducts(selectedCategory);
+                }
+            });
+    
+            // Array to store the products and their quantities in local storage
+            const cart = JSON.parse(localStorage.getItem('cart')) || {};
+    
+            // Function to update the cart count in the navbar
+            function updateCartCount() {
+                const cartCountElement = document.querySelector('.cart-count');
+                const totalItems = Object.values(cart).reduce((sum, quantity) => sum + quantity, 0);
+                cartCountElement.textContent = totalItems;
+            }
+    
+            // Function to add a product to the cart
+            function addToCart(productId) {
+                // Check if product already in cart
+                if (cart[productId]) {
+                    cart[productId] += 1;
+                } else {
+                    cart[productId] = 1;
+                }
+                // Store the updated cart in local storage
+                localStorage.setItem('cart', JSON.stringify(cart));
+    
+                // Update the cart count
+                updateCartCount();
+            }
+    
+            // Initialize cart count
+            updateCartCount();
+        </script>
+   
+</body>
+</html>

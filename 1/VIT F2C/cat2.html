@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmkart</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .slider-container {
+            width: 100%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 10px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .slider {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+        }
+
+        .slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category {
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            padding: 5px 10px;
+            margin-right: 10px;
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .category img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .product-card {
+            background-color: white;
+            padding: 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 15px; /* Rounded corners */
+            width: 290px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            position: relative; /* Needed for the discount badge */
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 columns */
+            grid-template-rows: repeat(2, auto); /* 2 rows */
+            gap: 20px; /* Add some space between the grid items */
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px; /* Space between image and text */
+        }
+
+        .product-card h3 {
+            margin: 10px 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .rating {
+            color: #FFA500;
+            margin: 5px 0;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            margin-left: 5px;
+        }
+
+        .discount {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #4CAF50; /* Green color */
+            color: white;
+            padding: 5px 10px;
+            font-size: 12px;
+            border-radius: 5px;
+        }
+
+        .add-to-cart {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%; /* Full width button */
+        }
+
+        .add-to-cart:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+        .rating span {
+            color: #999;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-left">
+        <span><i class="fa fa-map-marker"></i> Chennai, TamilNadu</span>
+        <span><i class="fa fa-envelope"></i> info@farmkart-site.com</span>
+    </div>
+    <div class="top-right">
+        <a href="#">facebook</a> - 
+        <a href="#">behance</a> - 
+        <a href="#">pinterest</a>
+        <span class="language">EN <i class="fa fa-chevron-down"></i></span>
+    </div>
+</div>
+
+<!-- Main Navbar -->
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="Cabbage Logo">
+            <span>Farmkart</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">Pages</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Pages</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="nav-icons">
+            <!-- Favorites icon -->
+            <a href="#" class="icon"><i class="fas fa-heart"></i></a>
+            <!-- Profile icon -->
+            <a href="#" class="icon"><i class="fas fa-user"></i></a>
+            <!-- Cart icon -->
+            <a href="cart.html" class="icon cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <!-- Cart item count indicator -->
+                <span class="cart-count">0</span>
+            </a>
+            <button class="quote-btn">GET A QUOTE</button>
+        </div>
+    </nav>
+</header>
+    <!-- Draggable Slider -->
+    <div class="slider-container">
+        <div class="slider" id="category-slider">
+            <div class="category" data-category="Acacia honey">
+                <img src="https://via.placeholder.com/30x30?text=Acacia honey" alt="Acacia honey">
+                <span>Acacia honey</span>
+            </div>
+            <div class="category" data-category="Alfalfa honey">
+                <img src="https://via.placeholder.com/30x30?text=Alfalfa honey" alt="Alfalfa honey">
+                <span>Alfalfa honey</span>
+            </div>
+            <div class="category" data-category=" Basswood honey">
+                <img src="https://via.placeholder.com/30x30?text= Basswood honey" alt=" Basswood honey">
+                <span> Basswood honey</span>
+            </div>
+            <div class="category" data-category="Lavender honey">
+                <img src="https://via.placeholder.com/30x30?text=Lavender honey" alt="Lavender honey">
+                <span>Lavender honey</span>
+            </div>
+            <div class="category" data-category="Eucalyptus honey">
+                <img src="https://via.placeholder.com/30x30?text=Eucalyptus honey" alt="Eucalyptus honey">
+                <span>Eucalyptus honey</span>
+            </div>
+          
+        </div>
+    </div>
+
+    <!-- Featured Products Section -->
+    <section class="featured-products">
+        <h2 id="featured-category-title">Featured Products</h2><br>
+        <div class="products-grid" id="products-grid">
+            <!-- Products will be inserted here dynamically -->
+        </div>
+    </section>
+
+    <script>
+        const products = [
+            // Acacia honey products
+            { id: 265, name: 'Acacia honey 1', category: 'Acacia honey', price: '$32.00', oldPrice: '$46.00', discount: '-29%', imgSrc: 'https://via.placeholder.com/150?text=Acacia honey1' },
+            { id: 266, name: 'Acacia honey 2', category: 'Acacia honey', price: '$33.00', oldPrice: '$47.00', discount: '-30%', imgSrc: 'https://via.placeholder.com/150?text=Acacia honey2' },
+            { id: 267, name: 'Acacia honey 3', category: 'Acacia honey', price: '$31.00', oldPrice: '$43.00', discount: '-40%', imgSrc: 'https://via.placeholder.com/150?text=Acacia honey2' },
+            { id: 268, name: 'Acacia honey 4', category: 'Acacia honey', price: '$38.00', oldPrice: '$50.00', discount: '-32%', imgSrc: 'https://via.placeholder.com/150?text=Acacia honey2' },
+            { id: 269, name: 'Acacia honey 5', category: 'Acacia honey', price: '$39.00', oldPrice: '$47.00', discount: '-30%', imgSrc: 'https://via.placeholder.com/150?text=Acacia honey2' },
+            { id: 270, name: 'Acacia honey 6', category: 'Acacia honey', price: '$33.00', oldPrice: '$47.00', discount: '-30%', imgSrc: 'https://via.placeholder.com/150?text=Acacia honey2' },
+            { id: 271, name: 'Acacia honey 7', category: 'Acacia honey', price: '$33.00', oldPrice: '$47.00', discount: '-30%', imgSrc: 'https://via.placeholder.com/150?text=Acacia honey2' },
+            { id: 272, name: 'Acacia honey 8', category: 'Acacia honey', price: '$37.00', oldPrice: '$47.00', discount: '-10%', imgSrc: 'https://via.placeholder.com/150?text=Acacia honey2' },
+            
+            // Alfalfa honey products
+            { id: 273, name: 'Alfalfa honey 1', category: 'Alfalfa honey', price: '$25.00', oldPrice: '$30.00', discount: '-17%', imgSrc: 'https://via.placeholder.com/150?text=Alfalfa honey1' },
+            { id: 274, name: 'Alfalfa honey 2', category: 'Alfalfa honey', price: '$26.00', oldPrice: '$32.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text=Alfalfa honey2' },
+            { id: 275, name: 'Alfalfa honey 3', category: 'Alfalfa honey', price: '$25.00', oldPrice: '$30.00', discount: '-17%', imgSrc: 'https://via.placeholder.com/150?text=Alfalfa honey1' },
+            { id: 276, name: 'Alfalfa honey 4', category: 'Alfalfa honey', price: '$26.00', oldPrice: '$32.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text=Alfalfa honey2' },
+            { id: 277, name: 'Alfalfa honey 5', category: 'Alfalfa honey', price: '$25.00', oldPrice: '$30.00', discount: '-17%', imgSrc: 'https://via.placeholder.com/150?text=Alfalfa honey1' },
+            { id: 278, name: 'Alfalfa honey 6', category: 'Alfalfa honey', price: '$26.00', oldPrice: '$32.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text=Alfalfa honey2' },
+            { id: 279, name: 'Alfalfa honey 7', category: 'Alfalfa honey', price: '$25.00', oldPrice: '$30.00', discount: '-17%', imgSrc: 'https://via.placeholder.com/150?text=Alfalfa honey1' },
+            { id: 280, name: 'Alfalfa honey 8', category: 'Alfalfa honey', price: '$26.00', oldPrice: '$32.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text=Alfalfa honey2' },
+            //  Basswood honey products
+            { id: 281, name: ' Basswood honey 1', category: ' Basswood honey', price: '$40.00', oldPrice: '$50.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text= Basswood honey1' },
+            { id: 282, name: ' Basswood honey 2', category: ' Basswood honey', price: '$42.00', oldPrice: '$52.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text= Basswood honey2' },
+            { id: 283, name: ' Basswood honey 3', category: ' Basswood honey', price: '$40.00', oldPrice: '$50.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text= Basswood honey1' },
+            { id: 284, name: ' Basswood honey 4', category: ' Basswood honey', price: '$42.00', oldPrice: '$52.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text= Basswood honey2' },
+            { id: 285, name: ' Basswood honey 5', category: ' Basswood honey', price: '$40.00', oldPrice: '$50.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text= Basswood honey1' },
+            { id: 286, name: ' Basswood honey 6', category: ' Basswood honey', price: '$42.00', oldPrice: '$52.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text= Basswood honey2' },
+            { id: 287, name: ' Basswood honey 7', category: ' Basswood honey', price: '$40.00', oldPrice: '$50.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text= Basswood honey1' },
+            { id: 288, name: ' Basswood honey 8', category: ' Basswood honey', price: '$42.00', oldPrice: '$52.00', discount: '-19%', imgSrc: 'https://via.placeholder.com/150?text= Basswood honey2' },
+            // Lavender honey products
+            { id: 289, name: 'Lavender honey 1', category: 'Lavender honey', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Lavender honey1' },
+            { id: 290, name: 'Lavender honey 2', category: 'Lavender honey', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Lavender honey2' },
+            { id: 291, name: 'Lavender honey 3', category: 'Lavender honey', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Lavender honey1' },
+            { id: 292, name: 'Lavender honey 4', category: 'Lavender honey', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Lavender honey2' },
+            { id: 293, name: 'Lavender honey 5', category: 'Lavender honey', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Lavender honey1' },
+            { id: 294, name: 'Lavender honey 6', category: 'Lavender honey', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Lavender honey2' },
+            { id: 295, name: 'Lavender honey 7', category: 'Lavender honey', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Lavender honey1' },
+            { id: 296, name: 'Lavender honey 8', category: 'Lavender honey', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Lavender honey2' },
+            // Eucalyptus honey products
+            { id: 297, name: 'Eucalyptus honey 1', category: 'Eucalyptus honey', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Eucalyptus honey1' },
+            { id: 298, name: 'Eucalyptus honey 2', category: 'Eucalyptus honey', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Eucalyptus honey2' },
+            { id: 299, name: 'Eucalyptus honey 3', category: 'Eucalyptus honey', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Eucalyptus honey1' },
+            { id: 300, name: 'Eucalyptus honey 4', category: 'Eucalyptus honey', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Eucalyptus honey2' },
+            { id: 301, name: 'Eucalyptus honey 5', category: 'Eucalyptus honey', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Eucalyptus honey1' },
+            { id: 302, name: 'Eucalyptus honey 6', category: 'Eucalyptus honey', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Eucalyptus honey2' },
+            { id: 303, name: 'Eucalyptus honey 7', category: 'Eucalyptus honey', price: '$22.00', oldPrice: '$28.00', discount: '-21%', imgSrc: 'https://via.placeholder.com/150?text=Eucalyptus honey1' },
+            { id: 304, name: 'Eucalyptus honey 8', category: 'Eucalyptus honey', price: '$24.00', oldPrice: '$30.00', discount: '-20%', imgSrc: 'https://via.placeholder.com/150?text=Eucalyptus honey2' },
+
+           
+         
+        ];
+
+    
+        const productGrid = document.getElementById('products-grid');
+        const categoryTitle = document.getElementById('featured-category-title');
+
+        // Function to display products based on selected category
+        function displayProducts(category) {
+            productGrid.innerHTML = '';
+            categoryTitle.textContent = category + ' Products';
+
+            const filteredProducts = products.filter(product => product.category === category);
+
+            filteredProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product-card');
+                productCard.innerHTML = `
+                    <img src="${product.imgSrc}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <div class="rating">★★★★☆<span>(24)</span></div>
+                    <div class="price">${product.price} <span class="old-price">${product.oldPrice}</span></div>
+                    <div class="discount">${product.discount}</div>
+                    <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
+                `;
+                productGrid.appendChild(productCard);
+            });
+
+            // Call function to add event listeners after rendering new products
+            addEventListenersToCartButtons();
+        }
+
+        // Function to add event listeners to "Add to Cart" buttons
+        function addEventListenersToCartButtons() {
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function () {
+                    const productId = this.getAttribute('data-id');
+                    addToCart(productId);
+                });
+            });
+        }
+
+        // Initial load of a category (Banana)
+        displayProducts('Acacia honey');
+
+        // Slider category click event
+        document.getElementById('category-slider').addEventListener('click', (event) => {
+            const categoryElement = event.target.closest('.category');
+            if (categoryElement) {
+                const selectedCategory = categoryElement.getAttribute('data-category');
+                displayProducts(selectedCategory);
+            }
+        });
+
+        // Array to store the products and their quantities in local storage
+        const cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+        // Function to update the cart count in the navbar
+        function updateCartCount() {
+            const cartCountElement = document.querySelector('.cart-count');
+            const totalItems = Object.values(cart).reduce((sum, quantity) => sum + quantity, 0);
+            cartCountElement.textContent = totalItems;
+        }
+
+        // Function to add a product to the cart
+        function addToCart(productId) {
+            // Check if product already in cart
+            if (cart[productId]) {
+                cart[productId] += 1;
+            } else {
+                cart[productId] = 1;
+            }
+            // Store the updated cart in local storage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Update the cart count
+            updateCartCount();
+        }
+
+        // Initialize cart count
+        updateCartCount();
+        </script>
+    
+   
+</body>
+</html>
