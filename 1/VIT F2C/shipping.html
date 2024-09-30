@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipping Address Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #5cb85c;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Shipping Address</h2>
+        <form id="shipping-form">
+            <label>
+                Full Name <span class="required">*</span>
+                <input type="text" name="full-name" required aria-label="Full Name">
+            </label>
+            <label>
+                Country <span class="required">*</span>
+                <select name="country" required aria-label="Country">
+                    <option value="">Select a country...</option>
+                    <option value="USA">United States of America</option>
+                    <option value="CAN">Canada</option>
+                    <!-- More countries can be added here -->
+                </select>
+            </label>
+            <label>
+                Address Line 1 <span class="required">*</span>
+                <input type="text" name="address1" required aria-label="Address Line 1">
+            </label>
+            <label>
+                Address Line 2
+                <input type="text" name="address2" aria-label="Address Line 2">
+            </label>
+            <label>
+                City <span class="required">*</span>
+                <input type="text" name="city" required aria-label="City">
+            </label>
+            <label>
+                State/Province <span class="required">*</span>
+                <input type="text" name="state" required aria-label="State/Province">
+            </label>
+            <label>
+                Zip/Postal Code <span class="required">*</span>
+                <input type="text" name="zip" required aria-label="Zip/Postal Code">
+            </label>
+            <button type="submit">Continue</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById("shipping-form");
+
+            form.addEventListener("submit", function(event) {
+                event.preventDefault(); // Prevent normal form submission
+
+                // Get form values
+                const formData = new FormData(this);
+                const data = {
+                    fullName: formData.get('full-name'),
+                    country: formData.get('country'),
+                    address1: formData.get('address1'),
+                    address2: formData.get('address2'),
+                    city: formData.get('city'),
+                    state: formData.get('state'),
+                    zip: formData.get('zip')
+                };
+
+                // Store form data in LocalStorage
+                try {
+                    localStorage.setItem('shippingData', JSON.stringify(data));
+                    console.log('Data stored:', localStorage.getItem('shippingData'));
+                    // Redirect to the order list page
+                    window.location.href = 'payment2.html';
+                } catch (error) {
+                    console.error('Error storing data in LocalStorage', error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

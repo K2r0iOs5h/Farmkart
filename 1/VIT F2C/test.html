@@ -1,188 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farmkart</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-
-        .slider-container {
-            width: 100%;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 10px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            position: relative;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .slider {
-            display: flex;
-            overflow-x: auto;
-            white-space: nowrap;
-            scrollbar-width: none;
-            scroll-behavior: smooth;
-        }
-
-        .slider::-webkit-scrollbar {
-            display: none;
-        }
-
-        .category {
-            background-color: #f1f1f1;
-            border-radius: 20px;
-            padding: 5px 10px;
-            margin-right: 10px;
-            text-align: center;
-            font-size: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            flex-shrink: 0;
-        }
-
-        .category img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-right: 5px;
-        }
-
-        .product-card {
-            background-color: white;
-            padding: 20px;
-            margin: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            width: 200px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .products-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
-
-        .product-card img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .rating {
-            margin: 5px 0;
-        }
-
-        .price {
-            font-weight: bold;
-            margin: 5px 0;
-        }
-
-        .old-price {
-            text-decoration: line-through;
-            color: red;
-        }
-
-        .discount {
-            color: green;
-            font-size: 14px;
-        }
-
-        .add-to-cart {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product Admin - Dashboard HTML Template</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="css/fontawesome.min.css">
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="css/templatemo-style.css">
+    <!--
+	Product Admin CSS Template
+	https://templatemo.com/tm-524-product-admin
+	-->
 </head>
-<body>
 
-    <!-- Draggable Slider -->
-    <div class="slider-container">
-        <div class="slider" id="category-slider">
-            <div class="category" data-category="Banana">
-                <img src="https://via.placeholder.com/30x30?text=Banana" alt="Banana">
-                <span>Banana</span>
+<body id="reportsPage">
+    <div class="" id="home">
+        <nav class="navbar navbar-expand-xl">
+            <div class="container h-100">
+                <a class="navbar-brand" href="index.html">
+                    <h1 class="tm-site-title mb-0">Product Admin</h1>
+                </a>
+                <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars tm-nav-icon"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto h-100">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <i class="fas fa-tachometer-alt"></i>
+                                Dashboard
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="products.html">
+                                <i class="fas fa-shopping-cart"></i>
+                                Products
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="accounts.html">
+                                <i class="far fa-user"></i>
+                                Accounts
+                            </a>
+                        </li>
+                        
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link d-block" href="login.html">
+                                Admin, <b>Logout</b>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="category" data-category="Apple">
-                <img src="https://via.placeholder.com/30x30?text=Apple" alt="Apple">
-                <span>Apple</span>
+
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="text-white mt-5 mb-5">Welcome back, <b>Admin</b></p>
+                </div>
             </div>
-            <div class="category" data-category="Mango">
-                <img src="https://via.placeholder.com/30x30?text=Mango" alt="Mango">
-                <span>Mango</span>
-            </div>
-        </div>
+            <!-- row -->
+            <div class="row tm-content-row">
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block">
+                        <h2 class="tm-block-title">Orders</h2>
+                        <canvas id="lineChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block">
+                        <h2 class="tm-block-title">Stocks</h2>
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller">
+                        <h2 class="tm-block-title"> Daily Reports</h2>
+                        <div id="pieChartContainer">
+                            <canvas id="pieChart" class="chartjs-render-monitor" width="200" height="200"></canvas>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-overflow">
+                        <h2 class="tm-block-title">Notification List</h2>
+                        <div class="tm-notification-items">
+                            <div class="media tm-notification-item">
+                                <div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                                <div class="media-body">
+                                    <p class="mb-2"><b>Jessica</b> and <b>6 others</b> sent you new <a href="#"
+                                            class="tm-notification-link">product updates</a>. Check new orders.</p>
+                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>
+                                </div>
+                            </div>
+                            <div class="media tm-notification-item">
+                                <div class="tm-gray-circle"><img src="img/notification-02.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                                <div class="media-body">
+                                    <p class="mb-2"><b>Oliver Too</b> and <b>6 others</b> sent you existing <a href="#"
+                                            class="tm-notification-link">product updates</a>. Read more reports.</p>
+                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>
+                                </div>
+                            </div>
+                            <div class="media tm-notification-item">
+                                <div class="tm-gray-circle"><img src="img/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                                <div class="media-body">
+                                    <p class="mb-2"><b>Victoria</b> and <b>6 others</b> sent you <a href="#"
+                                            class="tm-notification-link">order updates</a>. Read order information.</p>
+                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>
+                                </div>
+                            </div>
+                            <div class="media tm-notification-item">
+                                <div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                                <div class="media-body">
+                                    <p class="mb-2"><b>Laura Cute</b> and <b>6 others</b> sent you <a href="#"
+                                            class="tm-notification-link">product records</a>.</p>
+                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>
+                                </div>
+                            </div>
+                            <div class="media tm-notification-item">
+                                <div class="tm-gray-circle"><img src="img/notification-02.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                                <div class="media-body">
+                                    <p class="mb-2"><b>Samantha</b> and <b>6 others</b> sent you <a href="#"
+                                            class="tm-notification-link">order stuffs</a>.</p>
+                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>
+                                </div>
+                            </div>
+                            <div class="media tm-notification-item">
+                                <div class="tm-gray-circle"><img src="img/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                                <div class="media-body">
+                                    <p class="mb-2"><b>Sophie</b> and <b>6 others</b> sent you <a href="#"
+                                            class="tm-notification-link">product updates</a>.</p>
+                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>
+                                </div>
+                            </div>
+                            <div class="media tm-notification-item">
+                                <div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                                <div class="media-body">
+                                    <p class="mb-2"><b>Lily A</b> and <b>6 others</b> sent you <a href="#"
+                                            class="tm-notification-link">product updates</a>.</p>
+                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>
+                                </div>
+                            </div>
+                            <div class="media tm-notification-item">
+                                <div class="tm-gray-circle"><img src="img/notification-02.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                                <div class="media-body">
+                                    <p class="mb-2"><b>Amara</b> and <b>6 others</b> sent you <a href="#"
+                                            class="tm-notification-link">product updates</a>.</p>
+                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>
+                                </div>
+                            </div>
+                            <div class="media tm-notification-item">
+                                <div class="tm-gray-circle"><img src="img/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                                <div class="media-body">
+                                    <p class="mb-2"><b>Cinthela</b> and <b>6 others</b> sent you <a href="#"
+                                            class="tm-notification-link">product updates</a>.</p>
+                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               <!-- Existing Orders List Table -->
+<div class="col-12 tm-block-col">
+    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+        <h2 class="tm-block-title">Orders List</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">PRODUCT</th>
+                    <th scope="col">QUANTITY</th>
+                    <th scope="col">SUBTOTAL</th>
+                    <th scope="col">ADDRESS 1</th>
+                    <th scope="col">ADDRESS 2</th>
+                    <th scope="col">CITY</th>
+                    <th scope="col">COUNTRY</th>
+                    <th scope="col">STATE</th>
+                    <th scope="col">ZIP</th>
+                </tr>
+            </thead>
+            <tbody id="order-list-body">
+                <!-- Data for orders will be dynamically inserted here -->
+            </tbody>
+        </table>
     </div>
+</div>
 
-    <!-- Featured Products Section -->
-    <section class="featured-products">
-        <h2 id="featured-category-title">Featured Products</h2><br>
-        <div class="products-grid" id="products-grid">
-            <!-- Products will be inserted here dynamically -->
-        </div>
-    </section>
+<script>
+    // Mock product data (can be replaced by actual data)
+    const products = {
+        "1": { name: 'Potato', price: 32.00 },
+        "2": { name: 'Red Hot Chilies', price: 25.00 }
+    };
 
-    <script>
-        const products = [
-            { id: 1, name: 'Banana', category: 'Banana', price: '$32.00', oldPrice: '$46.00', discount: '-29%', imgSrc: 'https://via.placeholder.com/150?text=Banana' },
-            { id: 2, name: 'Apple', category: 'Apple', price: '$25.00', oldPrice: '$40.00', discount: '-37%', imgSrc: 'https://via.placeholder.com/150?text=Apple' },
-            { id: 3, name: 'Mango', category: 'Mango', price: '$28.00', oldPrice: '$36.00', discount: '-22%', imgSrc: 'https://via.placeholder.com/150?text=Mango' },
-            { id: 4, name: 'Banana Smoothie', category: 'Banana', price: '$30.00', oldPrice: '$50.00', discount: '-40%', imgSrc: 'https://via.placeholder.com/150?text=Banana+Smoothie' },
-            { id: 5, name: 'Apple Pie', category: 'Apple', price: '$20.00', oldPrice: '$35.00', discount: '-43%', imgSrc: 'https://via.placeholder.com/150?text=Apple+Pie' },
-            { id: 6, name: 'Mango Juice', category: 'Mango', price: '$22.00', oldPrice: '$30.00', discount: '-26%', imgSrc: 'https://via.placeholder.com/150?text=Mango+Juice' },
-        ];
+    // Sample shipping data and cart data (retrieved from local storage)
+    const shippingData = JSON.parse(localStorage.getItem('shippingData')) || {
+        fullName: "John Doe",
+        address1: "123 Street Name",
+        address2: "Apt 4B",
+        city: "New York",
+        country: "USA",
+        state: "NY",
+        zip: "10001"
+    };
 
-        const productGrid = document.getElementById('products-grid');
-        const categoryTitle = document.getElementById('featured-category-title');
+    const cartData = JSON.parse(localStorage.getItem('cart')) || {
+        "1": 2, // 2 Potatoes
+        "2": 3  // 3 Chilies
+    };
 
-        // Function to display products based on selected category
-        function displayProducts(category) {
-            productGrid.innerHTML = '';
-            categoryTitle.textContent = category + ' Products';
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get table body element
+        const orderListBody = document.getElementById('order-list-body');
 
-            const filteredProducts = products.filter(product => product.category === category);
+        // Loop over cart data to populate the table with product and shipping details
+        let total = 0;
+        for (const productId in cartData) {
+            const quantity = cartData[productId];
+            const product = products[productId];
 
-            filteredProducts.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.classList.add('product-card');
-                productCard.innerHTML = `
-                    <img src="${product.imgSrc}" alt="${product.name}">
-                    <h3>${product.name}</h3>
-                    <div class="rating">★★★★☆</div>
-                    <div class="price">${product.price} <span class="old-price">${product.oldPrice}</span></div>
-                    <div class="discount">${product.discount}</div>
-                    <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
+            if (product) {
+                const subtotal = (product.price * quantity).toFixed(2);
+                total += parseFloat(subtotal);
+
+                // Create a new row for the product order
+                const row = `
+                    <tr>
+                        <td>${product.name}</td>
+                        <td>${quantity}</td>
+                        <td>$${subtotal}</td>
+                        <td>${shippingData.address1}</td>
+                        <td>${shippingData.address2 || 'N/A'}</td>
+                        <td>${shippingData.city}</td>
+                        <td>${shippingData.country}</td>
+                        <td>${shippingData.state}</td>
+                        <td>${shippingData.zip}</td>
+                    </tr>
                 `;
-                productGrid.appendChild(productCard);
-            });
+                orderListBody.innerHTML += row;
+            }
         }
 
-        // Event listener for category click
-        document.getElementById('category-slider').addEventListener('click', (event) => {
-            const category = event.target.closest('.category')?.getAttribute('data-category');
-            if (category) {
-                displayProducts(category);
-            }
-        });
-
-        // Initial product display for the first category
-        displayProducts('Banana');
-    </script>
+        // Optionally, you can append a final row for the total amount
+        const totalRow = `
+            <tr>
+                <td colspan="2" style="text-align: right;"><strong>Total:</strong></td>
+                <td><strong>$${total.toFixed(2)}</strong></td>
+                <td colspan="6"></td>
+            </tr>
+        `;
+        orderListBody.innerHTML += totalRow;
+    });
+</script>
 
 </body>
+
 </html>

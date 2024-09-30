@@ -6,6 +6,8 @@
     <title>Secure Payment</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stripe/stripe-js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <style>
     body {
@@ -100,6 +102,44 @@ button:hover {
 }
 </style>
 <body>
+    
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-left">
+            <span><i class="fa fa-map-marker"></i> Chennai, TamilNadu</span>
+            <span><i class="fa fa-envelope"></i> info@farmkart-site.com</span>
+        </div>
+        <div class="top-right">
+            <a href="#">facebook</a> - 
+            <a href="#">behance</a> - 
+            <a href="#">pinterest</a>
+            <span class="language">EN <i class="fa fa-chevron-down"></i></span>
+        </div>
+    </div>
+
+    <!-- Main Navbar -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="logo.png" alt="Cabbage Logo">
+                <span>Farmkart</span>
+            </div>
+          
+            <div class="nav-icons">
+                <!-- Favorites icon -->
+                <a href="#" class="icon"><i class="fas fa-heart"></i></a>
+                <!-- Profile icon -->
+                <a href="#" class="icon"><i class="fas fa-user"></i></a>
+                <!-- Cart icon -->
+                <a href="cart.html" class="icon cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <!-- Cart item count indicator -->
+                    <span class="cart-count">0</span>
+                </a>
+              
+            </div>
+        </nav>
+    </header>
     <div class="container">
         <h1>Secure Payment</h1>
         <form id="payment-form">
@@ -139,10 +179,10 @@ button:hover {
                     <label for="upi-method">cash on delivery</label>
                 </div>
             </div>
-            <button type="submit">Pay Now</button>
+           
         </form>
+        <a href="payment1.html"><button>Pay Now</button></a> 
         <div id="message" class="hidden"></div>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Order Summary</h2>
+        
+        <h3>Shipping Information</h3>
+        <div id="shipping-info"></div>
+
+        <h3>Product Details</h3>
+        <table id="product-details">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Product rows will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Mock product data
+        const products = {
+           
+
+            "1": {  name: 'Potato', price: 32.00 },
+            "2": { name: 'Red Hot Chilies', price: 25.00 },
+           
+            // Add more products as needed
+        };
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Retrieve data from local storage
+            const shippingData = JSON.parse(localStorage.getItem('shippingData'));
+            const cartData = JSON.parse(localStorage.getItem('cart'));
+
+            // Display shipping information
+            const shippingInfo = `
+                <p><strong>Full Name:</strong> ${shippingData.fullName}</p>
+                <p><strong>Address Line 1:</strong> ${shippingData.address1}</p>
+                <p><strong>Address Line 2:</strong> ${shippingData.address2 || 'N/A'}</p>
+                <p><strong>City:</strong> ${shippingData.city}</p>
+                <p><strong>State:</strong> ${shippingData.state}</p>
+                <p><strong>Zip Code:</strong> ${shippingData.zip}</p>
+            `;
+            document.getElementById('shipping-info').innerHTML = shippingInfo;
+
+            // Calculate and display product details
+            const productDetailsBody = document.getElementById('product-details').getElementsByTagName('tbody')[0];
+
+            let total = 0;
+            for (const productId in cartData) {
+                const quantity = cartData[productId];
+                const product = products[productId];
+                if (product) {
+                    const subtotal = (product.price * quantity).toFixed(2);
+                    total += parseFloat(subtotal);
+                    const row = `
+                        <tr>
+                            <td>${product.name}</td>
+                            <td>${quantity}</td>
+                            <td>$${subtotal}</td>
+                        </tr>
+                    `;
+                    productDetailsBody.innerHTML += row;
+                }
+            }
+
+            // Optionally display the total amount
+            const totalRow = `
+                <tr>
+                    <td colspan="2" style="text-align: right;"><strong>Total:</strong></td>
+                    <td><strong>$${total.toFixed(2)}</strong></td>
+                </tr>
+            `;
+            productDetailsBody.innerHTML += totalRow;
+        });
+    </script>
+</body>
+</html>

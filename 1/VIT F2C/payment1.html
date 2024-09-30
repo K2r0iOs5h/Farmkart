@@ -3,134 +3,661 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Placed - Amazon</title>
+    <title>Order Placed - Farmkart</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
-        body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-}
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
 
-.container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: relative;
-    overflow: hidden;
-}
+        .heady {
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #75b246, #75b246);
+            padding: 20px;
+            border-radius: 8px;
+        }
 
-header {
-    text-align: center;
-    margin-bottom: 20px;
-    background: linear-gradient(to right, #75b246, #75b246);
-    padding: 20px;
-    border-radius: 8px;
-}
+        h1 {
+            color: #fff;
+            font-size: 2.5em;
+        }
 
-h1 {
-    color: #fff;
-    font-size: 2.5em;
-}
+        h2, h3 {
+            color: #333;
+        }
 
-h2, h3 {
-    color: #333;
-}
+        .order-summary {
+            margin-bottom: 20px;
+        }
 
-.order-summary {
-    margin-bottom: 20px;
-}
+        .order-details, .product-list {
+            margin-bottom: 15px;
+        }
 
-.order-details, .product-list {
-    margin-bottom: 15px;
-}
+        .product {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
 
-.product {
-    display: flex;
-    align-items: center;
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
+        .product img {
+            max-width: 50px;
+            margin-right: 10px;
+        }
 
-.product img {
-    max-width: 50px;
-    margin-right: 10px;
-}
+        .product-info {
+            flex-grow: 1;
+        }
 
-.product-info {
-    flex-grow: 1;
-}
+        .total {
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: right;
+        }
 
-.total {
-    font-weight: bold;
-    font-size: 1.2em;
-    text-align: right;
-}
+        footer {
+            text-align: center;
+            font-size: 0.8em;
+            color: #666;
+        }
 
-footer {
-    text-align: center;
-    font-size: 0.8em;
-    color: #666;
-}
-
-.flower {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url() no-repeat;
-    background-size: 50px 50px;
-    opacity: 0.1;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-}
+        .flower {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url() no-repeat;
+            background-size: 50px 50px;
+            opacity: 0.1;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-left">
+            <span><i class="fa fa-map-marker"></i> Chennai, TamilNadu</span>
+            <span><i class="fa fa-envelope"></i> info@farmkart-site.com</span>
+        </div>
+        <div class="top-right">
+            <a href="#">facebook</a> - 
+            <a href="#">behance</a> - 
+            <a href="#">pinterest</a>
+            <span class="language">EN <i class="fa fa-chevron-down"></i></span>
+        </div>
+    </div>
+
+    <!-- Main Navbar -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="logo.png" alt="Cabbage Logo">
+                <span>Farmkart</span>
+            </div>
+          
+            <div class="nav-icons">
+                <!-- Favorites icon -->
+                <a href="#" class="icon"><i class="fas fa-heart"></i></a>
+                <!-- Profile icon -->
+                <a href="#" class="icon"><i class="fas fa-user"></i></a>
+                <!-- Cart icon -->
+                <a href="cart.html" class="icon cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <!-- Cart item count indicator -->
+                    <span class="cart-count">0</span>
+                </a>
+              
+            </div>
+        </nav>
+    </header>
+
     <div class="container">
-        <header>
+        <div class="heady">
             <h1>Congratulations!</h1>
             <p style="color: #fff;">Your order has been placed successfully.</p>
-        </header>
+        </div>
         <section class="order-summary">
             <h2>Order Summary</h2>
             <div class="order-details">
                 <p><strong>Order Number:</strong> #123-4567890-1234567</p>
                 <p><strong>Order Date:</strong> September 29, 2024</p>
             </div>
-            <div class="product-list">
-                <h3>Items Ordered:</h3>
-                <div class="product">
-                    <img src="https://via.placeholder.com/150" alt="Product Image">
-                    <div class="product-info">
-                        <h4>Product Title</h4>
-                        <p>Price: $29.99</p>
-                        <p>Quantity: 1</p>
-                    </div>
-                </div>
-                <div class="product">
-                    <img src="https://via.placeholder.com/150" alt="Product Image">
-                    <div class="product-info">
-                        <h4>Another Product Title</h4>
-                        <p>Price: $19.99</p>
-                        <p>Quantity: 2</p>
-                    </div>
-                </div>
+            <div id="product-list" class="product-list">
+                <!-- Products will be populated here -->
             </div>
-            <div class="total">
-                <h3>Total Amount: $69.97</h3>
+            <div id="total-amount" class="total">
+                <!-- Total amount will be populated here -->
             </div>
         </section>
         <footer>
             <p>&copy; 2024 Farmkart.com, Inc. or its affiliates</p>
         </footer>
     </div>
+
+    <script>
+        // Retrieve the cart from localStorage
+        const cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+        // Simulate products from previous cart code
+        const products = {
+            1: { id: 1, name: 'Potato', price: 32.00 },
+            2: { id: 2, name: 'Red Hot Chilies', price: 25.00 },
+            3: { id: 3, name: 'Mangoes', price: 32.00 },
+            4: { id: 4, name: 'Guvava', price: 32.00 },
+            5: { id: 5, name: 'Red Tomatoes', price: 25.00 },
+            6: { id: 6, name: 'Fresh Honey', price: 32.00 },
+            7: { id: 7, name: 'Carrots', price: 32.00 },
+            8: { id: 8, name: 'Corn', price: 32.00 },
+            9: { id: 9, name: 'Banana 1', price: 32.00 },
+        10: { id: 9, name: 'Banana 2', price: 32.00 },
+        11: { id: 9, name: 'Banana 3', price: 32.00 },
+        12: { id: 9, name: 'Banana 4', price: 32.00 },
+        13: { id: 9, name: 'Banana 5', price: 32.00 },
+        14: { id: 9, name: 'Banana 6', price: 32.00 },
+        15: { id: 9, name: 'Banana 7', price: 32.00 },
+        16: { id: 9, name: 'Banana 8', price: 32.00 },
+
+        17: { id: 9, name: 'Apple 1', price: 32.00 },
+        18: { id: 9, name: 'Apple 2', price: 32.00 },
+        19: { id: 9, name: 'Apple 3', price: 32.00 },
+        20: { id: 9, name: 'Apple 4', price: 32.00 },
+        21: { id: 9, name: 'Apple 5', price: 32.00 },
+        22: { id: 9, name: 'Apple 6', price: 32.00 },
+        23: { id: 9, name: 'Apple 7', price: 32.00 },
+        24: { id: 9, name: 'Apple 8', price: 32.00 },
+        
+        26: { id: 9, name: 'Mango 2', price: 32.00 },
+        27: { id: 9, name: 'Mango 3', price: 32.00 },
+        28: { id: 9, name: 'Mango 4', price: 32.00 },
+        29: { id: 9, name: 'Mango 5', price: 32.00 },
+        30: { id: 9, name: 'Mango 6', price: 32.00 },
+        31: { id: 9, name: 'Mango 7', price: 32.00 },
+        32: { id: 9, name: 'Mango 8', price: 32.00 },
+
+        33: { id: 9, name: 'Orange 1', price: 32.00 },
+        34: { id: 9, name: 'Orange 2', price: 32.00 },
+        35: { id: 9, name: 'Orange 3', price: 32.00 },
+        36: { id: 9, name: 'Orange 4', price: 32.00 },
+        37: { id: 9, name: 'Orange 5', price: 32.00 },
+        38: { id: 9, name: 'Orange 6', price: 32.00 },
+        39: { id: 9, name: 'Orange 7', price: 32.00 },
+        40: { id: 9, name: 'Orange 8', price: 32.00 },
+
+        41: { id: 9, name: 'Strawberry 1', price: 32.00 },
+        42: { id: 9, name: 'Strawberry 2', price: 32.00 },
+        43: { id: 9, name: 'Strawberry 3', price: 32.00 },
+        44: { id: 9, name: 'Strawberry 4', price: 32.00 },
+        45: { id: 9, name: 'Strawberry 5', price: 32.00 },
+        46: { id: 9, name: 'Strawberry 6', price: 32.00 },
+        47: { id: 9, name: 'Strawberry 7', price: 32.00 },
+        48: { id: 9, name: 'Strawberry 8', price: 32.00 },
+
+        49: { id: 9, name: 'Pineapple 1', price: 32.00 },
+        50: { id: 9, name: 'Pineapple 2', price: 32.00 },
+        51: { id: 9, name: 'Pineapple 3', price: 32.00 },
+        52: { id: 9, name: 'Pineapple 4', price: 32.00 },
+        53: { id: 9, name: 'Pineapple 5', price: 32.00 },
+        54: { id: 9, name: 'Pineapple 6', price: 32.00 },
+        55: { id: 9, name: 'Pineapple 7', price: 32.00 },
+        56: { id: 9, name: 'Pineapple 8', price: 32.00 },
+
+        57: { id: 9, name: 'Grapes 1', price: 32.00 },
+        58: { id: 9, name: 'Grapes 2', price: 32.00 },
+        59: { id: 9, name: 'Grapes 3', price: 32.00 },
+        60: { id: 9, name: 'Grapes 4', price: 32.00 },
+        61: { id: 9, name: 'Grapes 5', price: 32.00 },
+        62: { id: 9, name: 'Grapes 6', price: 32.00 },
+        63: { id: 9, name: 'Grapes 7', price: 32.00 },
+        64: { id: 9, name: 'Grapes 8', price: 32.00 },
+
+        65: { id: 9, name: 'Watermelon 1', price: 32.00 },
+        66: { id: 9, name: 'Watermelon 2', price: 32.00 },
+        67: { id: 9, name: 'Watermelon 3', price: 32.00 },
+        68: { id: 9, name: 'Watermelon 4', price: 32.00 },
+        69: { id: 9, name: 'Watermelon 5', price: 32.00 },
+        70: { id: 9, name: 'Watermelon 6', price: 32.00 },
+        71: { id: 9, name: 'Watermelon 7', price: 32.00 },
+        72: { id: 9, name: 'Watermelon 8', price: 32.00 },
+
+        73: { id: 9, name: 'Blueberry 1', price: 32.00 },
+        74: { id: 9, name: 'Blueberry 2', price: 32.00 },
+        75: { id: 9, name: 'Blueberry 3', price: 32.00 },
+        76: { id: 9, name: 'Blueberry 4', price: 32.00 },
+        77: { id: 9, name: 'Blueberry 5', price: 32.00 },
+        78: { id: 9, name: 'Blueberry 6', price: 32.00 },
+        79: { id: 9, name: 'Blueberry 7', price: 32.00 },
+        80: { id: 9, name: 'Blueberry 8', price: 32.00 },
+
+        81: { id: 9, name: 'Peach 1', price: 32.00 },
+        82: { id: 9, name: 'Peach 2', price: 32.00 },
+        83: { id: 9, name: 'Peach 3', price: 32.00 },
+        84: { id: 9, name: 'Peach 4', price: 32.00 },
+        85: { id: 9, name: 'Peach 5', price: 32.00 },
+        86: { id: 9, name: 'Peach 6', price: 32.00 },
+        87: { id: 9, name: 'Peach 7', price: 32.00 },
+        88: { id: 9, name: 'Peach 8', price: 32.00 },
+
+        89: { id: 9, name: 'Pear 1', price: 32.00 },
+        90: { id: 9, name: 'Pear 2', price: 32.00 },
+        91: { id: 9, name: 'Pear 3', price: 32.00 },
+        92: { id: 9, name: 'Pear 4', price: 32.00 },
+        93: { id: 9, name: 'Pear 5', price: 32.00 },
+        94: { id: 9, name: 'Pear 6', price: 32.00 },
+        95: { id: 9, name: 'Pear 7', price: 32.00 },
+        96: { id: 9, name: 'Pear 8', price: 32.00 },
+
+        97: { id: 9, name: 'Plum 1', price: 32.00 },
+        98: { id: 9, name: 'Plum 2', price: 32.00 },
+        99: { id: 9, name: 'Plum 3', price: 32.00 },
+        100: { id: 9, name: 'Plum 4', price: 32.00 },
+        101: { id: 9, name: 'Plum 5', price: 32.00 },
+        102: { id: 9, name: 'Plum 6', price: 32.00 },
+        103: { id: 9, name: 'Plum 7', price: 32.00 },
+        104: { id: 9, name: 'Plum 8', price: 32.00 },
+
+        105: { id: 9, name: 'Cherry 1', price: 32.00 },
+        106: { id: 9, name: 'Cherry 2', price: 32.00 },
+        107: { id: 9, name: 'Cherry 3', price: 32.00 },
+        108: { id: 9, name: 'Cherry 4', price: 32.00 },
+        109: { id: 9, name: 'Cherry 5', price: 32.00 },
+        110: { id: 9, name: 'Cherry 6', price: 32.00 },
+        111: { id: 9, name: 'Cherry 7', price: 32.00 },
+        112: { id: 9, name: 'Cherry 8', price: 32.00 },
+
+        113: { id: 9, name: 'Kiwi 1', price: 32.00 },
+        114: { id: 9, name: 'Kiwi 2', price: 32.00 },
+        115: { id: 9, name: 'Kiwi 3', price: 32.00 },
+        116: { id: 9, name: 'Kiwi 4', price: 32.00 },
+        117: { id: 9, name: 'Kiwi 5', price: 32.00 },
+        118: { id: 9, name: 'Kiwi 6', price: 32.00 },
+        119: { id: 9, name: 'Kiwi 7', price: 32.00 },
+        120: { id: 9, name: 'Kiwi 8', price: 32.00 },
+
+        121: { id: 9, name: 'Papaya 1', price: 32.00 },
+        122: { id: 9, name: 'Papaya 2', price: 32.00 },
+        123: { id: 9, name: 'Papaya 3', price: 32.00 },
+        124: { id: 9, name: 'Papaya 4', price: 32.00 },
+        125: { id: 9, name: 'Papaya 5', price: 32.00 },
+        126: { id: 9, name: 'Papaya 6', price: 32.00 },
+        127: { id: 9, name: 'Papaya 7', price: 32.00 },
+        128: { id: 9, name: 'Papaya 8', price: 32.00 },
+
+        129: { id: 9, name: 'Avocado 1', price: 32.00 },
+        130: { id: 9, name: 'Avocado 2', price: 32.00 },
+        131: { id: 9, name: 'Avocado 3', price: 32.00 },
+        132: { id: 9, name: 'Avocado 4', price: 32.00 },
+        133: { id: 9, name: 'Avocado 5', price: 32.00 },
+        134: { id: 9, name: 'Avocado 6', price: 32.00 },
+        135: { id: 9, name: 'Avocado 7', price: 32.00 },
+        136: { id: 9, name: 'Avocado 8', price: 32.00 },
+      
+        // Tomato products
+        137: { id: 137, name: 'Tomatoes 1', price: 32.00 },
+        138: { id: 138, name: 'Tomatoes 2', price: 33.00 },
+        139: { id: 139, name: 'Tomatoes 3', price: 31.00 },
+       140: { id: 140, name: 'Tomatoes 4', price: 38.00 },
+       141:  { id: 141, name: 'Tomatoes 5', price: 39.00 },
+      142:  { id: 142, name: 'Tomatoes 6', price: 33.00 },
+       143: { id: 143, name: 'Tomatoes 7', price: 33.00 },
+       144: { id: 144, name: 'Tomatoes 8', price: 37.00 },
+    
+        // Potato products
+      145:  { id: 145, name: 'Potato 1', price: 25.00 },
+      146:  { id: 146, name: 'Potato 2', price: 26.00 },
+      147:  { id: 147, name: 'Potato 3', price: 25.00 },
+       148: { id: 148, name: 'Potato 4', price: 26.00 },
+       149: { id: 149, name: 'Potato 5', price: 25.00 },
+       150: { id: 150, name: 'Potato 6', price: 26.00 },
+       151: { id: 151, name: 'Potato 7', price: 25.00 },
+       152: { id: 152, name: 'Potato 8', price: 26.00 },
+    
+        // Carrot products
+       153: { id: 153, name: 'Carrots 1', price: 40.00 },
+      154:  { id: 154, name: 'Carrots 2', price: 42.00 },
+      155:  { id: 155, name: 'Carrots 3', price: 40.00 },
+      156:  { id: 156, name: 'Carrots 4', price: 42.00 },
+      157:  { id: 157, name: 'Carrots 5', price: 40.00 },
+      158:  { id: 158, name: 'Carrots 6', price: 42.00 },
+      159:  { id: 159, name: 'Carrots 7', price: 40.00 },
+      160:  { id: 160, name: 'Carrots 8', price: 42.00 },
+    
+        // Lady's Finger products
+      161:  { id: 161, name: 'Ladys Finger 1', price: 22.00 },
+      162:  { id: 162, name: 'Ladys Finger 2', price: 24.00 },
+      163:  { id: 163, name: 'Ladys Finger 3', price: 22.00 },
+      164:  { id: 164, name: 'Ladys Finger 4', price: 24.00 },
+       165: { id: 165, name: 'Ladys Finger 5', price: 22.00 },
+       166: { id: 166, name: 'Ladys Finger 6', price: 24.00 },
+       167: { id: 167, name: 'Ladys Finger 7', price: 22.00 },
+       168: { id: 168, name: 'Ladys Finger 8', price: 24.00 },
+    
+        // Cabbage products
+       169: { id: 169, name: 'Cabbage 1', price: 22.00 },
+      170:  { id: 170, name: 'Cabbage 2', price: 24.00 },
+      171:  { id: 171, name: 'Cabbage 3', price: 22.00 },
+     172:   { id: 172, name: 'Cabbage 4', price: 24.00 },
+      173:  { id: 173, name: 'Cabbage 5', price: 22.00 },
+      174:  { id: 174, name: 'Cabbage 6', price: 24.00 },
+      175:  { id: 175, name: 'Cabbage 7', price: 22.00 },
+      176:  { id: 176, name: 'Cabbage 8', price: 24.00 },
+    
+        // Pumpkin products
+      177:  { id: 177, name: 'Pumpkin 1', price: 22.00 },
+      178:  { id: 178, name: 'Pumpkin 2', price: 24.00 },
+      179:  { id: 179, name: 'Pumpkin 3', price: 22.00 },
+      180:  { id: 180, name: 'Pumpkin 4', price: 24.00 },
+      181:  { id: 181, name: 'Pumpkin 5', price: 22.00 },
+     182:   { id: 182, name: 'Pumpkin 6', price: 24.00 },
+      183:  { id: 183, name: 'Pumpkin 7', price: 22.00 },
+      184:  { id: 184, name: 'Pumpkin 8', price: 24.00 },
+    
+        // Brinjal products
+     185:   { id: 185, name: 'Brinjal 1', price: 22.00 },
+      186:  { id: 186, name: 'Brinjal 2', price: 24.00 },
+      187:  { id: 187, name: 'Brinjal 3', price: 22.00 },
+      188:  { id: 188, name: 'Brinjal 4', price: 24.00 },
+      189:  { id: 189, name: 'Brinjal 5', price: 22.00 },
+      190: { id: 190, name: 'Brinjal 6', price: 24.00 },
+       191: { id: 191, name: 'Brinjal 7', price: 22.00 },
+       192: { id: 192, name: 'Brinjal 8', price: 24.00 },
+    
+        // Onion products
+      193:  { id: 193, name: 'Onion 1', price: 22.00 },
+      194:  { id: 194, name: 'Onion 2', price: 24.00 },
+      195:  { id: 195, name: 'Onion 3', price: 22.00 },
+      196:  { id: 196, name: 'Onion 4', price: 24.00 },
+      197:  { id: 197, name: 'Onion 5', price: 22.00 },
+      198:  { id: 198, name: 'Onion 6', price: 24.00 },
+      199:  { id: 199, name: 'Onion 7', price: 22.00 },
+      
+    // Garlic products
+   201:  { id: 201, name: 'Garlic 1', price: 20.00 },
+   202: { id: 202, name: 'Garlic 2', price: 20.00 },
+   203: { id: 203, name: 'Garlic 3', price: 20.00 },
+   204: { id: 204, name: 'Garlic 4', price: 20.00 },
+   205: { id: 205, name: 'Garlic 5', price: 21.00 },
+   206: { id: 206, name: 'Garlic 6', price: 21.50 },
+   207: { id: 207, name: 'Garlic 7', price: 22.00 },
+   208: { id: 208, name: 'Garlic 8', price: 22.50 },
+
+    // Beetroot products
+   209: { id: 209, name: 'Beetroot 1', price: 15.00 },
+    210:{ id: 210, name: 'Beetroot 2', price: 15.50 },
+   211: { id: 211, name: 'Beetroot 3', price: 16.00 },
+    212:{ id: 212, name: 'Beetroot 4', price: 16.50 },
+   213: { id: 213, name: 'Beetroot 5', price: 17.00 },
+   214: { id: 214, name: 'Beetroot 6', price: 17.50 },
+   215: { id: 215, name: 'Beetroot 7', price: 18.00 },
+   216: { id: 216, name: 'Beetroot 8', price: 18.50 },
+
+    // Capsicum products
+   217:{ id: 217, name: 'Capsicum 1', price: 12.00 },
+   218: { id: 218, name: 'Capsicum 2', price: 12.50 },
+   219: { id: 219, name: 'Capsicum 3', price: 13.00 },
+   220: { id: 220, name: 'Capsicum 4', price: 13.50 },
+   221: { id: 221, name: 'Capsicum 5', price: 14.00 },
+   222: { id: 222, name: 'Capsicum 6', price: 14.50 },
+   223: { id: 223, name: 'Capsicum 7', price: 15.00 },
+   224: { id: 224, name: 'Capsicum 8', price: 15.50 },
+
+    // Mushroom products
+  225:  { id: 225, name: 'Mushroom 1', price: 10.00 },
+  226:  { id: 226, name: 'Mushroom 2', price: 10.50 },
+  227:  { id: 227, name: 'Mushroom 3', price: 11.00 },
+  228:  { id: 228, name: 'Mushroom 4', price: 11.50 },
+  229:  { id: 229, name: 'Mushroom 5', price: 12.00 },
+  230:  { id: 230, name: 'Mushroom 6', price: 12.50 },
+   231: { id: 231, name: 'Mushroom 7', price: 13.00 },
+  232:  { id: 232, name: 'Mushroom 8', price: 13.50 },
+
+    // Corn products
+ 233:   { id: 233, name: 'Corn 1', price: 5.00 },
+ 234:   { id: 234, name: 'Corn 2', price: 5.50 },
+ 235:   { id: 235, name: 'Corn 3', price: 6.00 },
+ 236:   { id: 236, name: 'Corn 4', price: 6.50 },
+ 237:   { id: 237, name: 'Corn 5', price: 7.00 },
+ 238:   { id: 238, name: 'Corn 6', price: 7.50 },
+ 239:   { id: 239, name: 'Corn 7', price: 8.00 },
+ 240:   { id: 240, name: 'Corn 8', price: 8.50 },
+
+    // Drumstick products
+ 241:   { id: 241, name: 'Drumstick 1', price: 8.00 },
+ 242:   { id: 242, name: 'Drumstick 2', price: 8.50 },
+ 243:   { id: 243, name: 'Drumstick 3', price: 9.00 },
+ 244:   { id: 244, name: 'Drumstick 4', price: 9.50 },
+ 245:   { id: 245, name: 'Drumstick 5', price: 10.00 },
+ 246:   { id: 246, name: 'Drumstick 6', price: 10.50 },
+ 247:    { id: 247, name: 'Drumstick 7', price: 11.00 },
+ 248:   { id: 248, name: 'Drumstick 8', price: 11.50 },
+
+    // Peas products
+ 249:   { id: 249, name: 'Peas 1', price: 6.00 },
+ 250:   { id: 250, name: 'Peas 2', price: 6.50 },
+ 251:   { id: 251, name: 'Peas 3', price: 7.00 },
+ 252:   { id: 252, name: 'Peas 4', price: 7.50 },
+ 253:   { id: 253, name: 'Peas 5', price: 8.00 },
+ 254:   { id: 254, name: 'Peas 6', price: 8.50 },
+ 255:   { id: 255, name: 'Peas 7', price: 9.00 },
+ 256:   { id: 256, name: 'Peas 8', price: 9.50 },
+
+    // Cauliflower products
+ 257:   { id: 257, name: 'Cauliflower 1', price: 5.50 },
+ 258:   { id: 258, name: 'Cauliflower 2', price: 6.00 },
+ 259:   { id: 259, name: 'Cauliflower 3', price: 6.50 },
+ 260:   { id: 260, name: 'Cauliflower 4', price: 7.00 },
+ 261:   { id: 261, name: 'Cauliflower 5', price: 7.50 },
+ 262:   { id: 262, name: 'Cauliflower 6', price: 8.00 },
+ 263:   { id: 263, name: 'Cauliflower 7', price: 8.50 },
+ 264:   { id: 264, name: 'Cauliflower 8', price: 9.00 },
+
+
+    265:  { id: 265, name: 'Acacia honey1', price: 32.00},
+    266:   { id: 266, name: 'Acacia honey2', price: 33.00 },
+     267:   { id:267, name: 'Acacia honey3', price: 31.00 },
+     268:   { id: 268, name: 'Acacia honey4', price: 38.00},
+     269:   { id: 269, name: 'Acacia honey5', price: 39.00 },
+     270:   { id: 270, name: 'Acacia honey6', price: 33.00},
+     271:   { id: 271, name: 'Acacia honey7', price: 33.00 },
+     272:   { id: 272, name: 'Acacia honey8', price: 37.00 },
+     273:{ id: 273, name: 'Alfalfa honey 1',  price: 25.00},
+     274:   { id: 274, name: 'Alfalfa honey 2',  price: 26.00},
+     275:   { id: 275, name: 'Alfalfa honey 3',  price: 25.00  },
+     276:   { id: 276, name: 'Alfalfa honey 4',  price: 26.00  },
+     277:   { id: 277, name: 'Alfalfa honey 5',  price: 25.00  },
+     278:   { id: 278, name: 'Alfalfa honey 6',  price: 26.00  },
+     279:   { id: 279, name: 'Alfalfa honey 7',  price: 25.00  },
+     280:   { id: 280, name: 'Alfalfa honey 8',  price: 26.00  },
+     281:{ id: 281, name: ' Basswood honey  1', price: 40.00  },
+      282:  { id: 282, name: ' Basswood honey  2', price: 42.00 },
+     283:   { id: 283, name: ' Basswood honey  3', price: 40.00 },
+     284:   { id: 284, name: ' Basswood honey  4', price: 42.00 },
+      285:  { id: 285, name: ' Basswood honey  5', price: 40.00 },
+      286:  { id: 286, name: ' Basswood honey  6', price: 42.00 },
+      287:  { id: 287, name: ' Basswood honey  7', price: 40.00 },
+      288:  { id: 388, name: ' Basswood honey  8', price: 42.00 },
+     289: { id: 289, name: 'Lavender honey 1', price: 22.00 },
+      290:  { id: 290, name: 'Lavender honey 2', price: 24.00 },
+      291:  { id: 291, name: 'Lavender honey 3', price: 22.00 },
+      292:  { id: 292, name: 'Lavender honey 4', price: 24.00 },
+      293:  { id: 293, name: 'Lavender honey 5', price: 22.00 },
+      294:  { id: 294, name: 'Lavender honey 6', price: 24.00 },
+      295:  { id: 295, name: 'Lavender honey 7', price: 22.00 },
+      296:  { id: 296, name: 'Lavender honey 8', price: 24.00 },
+    297:  { id: 297, name: 'Eucalyptus honey 1', price: 22.00 },
+       298: { id: 298, name: 'Eucalyptus honey 2', price: 24.00 },
+      299:  { id: 299, name: 'Eucalyptus honey 3', price: 22.00 },
+      300:  { id: 300, name: 'Eucalyptus honey 4', price: 24.00 },
+      301:  { id: 301, name: 'Eucalyptus honey 5', price: 22.00 },
+      302:  { id: 302, name: 'Eucalyptus honey 6', price: 24.00 },
+       303: { id: 303, name: 'Eucalyptus honey 7', price: 22.00 },
+       304: { id: 304, name: 'Eucalyptus honey 8', price: 24.00},
+
+
+
+
+
+
+ 305: { id: 305, name: 'Pumpkin seeds 1', price: 32.00 },
+ 306: { id: 306, name: 'Pumpkin seeds 2', price: 33.00},
+ 307: { id: 307, name: 'Pumpkin seeds 3', price: 31.00},
+ 308: { id: 308, name: 'Pumpkin seeds 4', price: 38.00},
+ 309:{ id: 309, name: 'Pumpkin seeds 5', price: 39.00},
+ 310:{ id: 310, name: 'Pumpkin seeds 6', price: 33.00},
+ 311:{ id: 311, name: 'Pumpkin seeds 7', price: 33.00},
+ 312:{ id: 312, name: 'Pumpkin seeds 8', price: 37.00},
+ 313:{ id: 313, name: 'Flax seeds 1',  price: 25.00}, 
+ 314:{ id: 314, name: 'Flax seeds 2',  price: 26.00},
+ 315:{ id: 315, name: 'Flax seeds 3',  price: 25.00}, 
+ 316:{ id: 316, name: 'Flax seeds 4',  price: 26.00},
+ 317:{ id: 317, name: 'Flax seeds 5',  price: 25.00}, 
+ 318:{ id: 318, name: 'Flax seeds 6',  price: 26.00},
+ 319:{ id: 319, name: 'Flax seeds 7',  price: 25.00}, 
+ 320:{ id: 320, name: 'Flax seeds 8',  price: 26.00},
+ 321:{ id: 321, name: 'Chia seeds 1', price: 40.00},
+ 322:{ id: 322, name: 'Chia seeds 2', price: 42.00},
+ 323:{ id: 323, name: 'Chia seeds 3', price: 40.00},
+ 324:{ id: 324, name: 'Chia seeds 4', price: 42.00},
+ 325:{ id: 325, name: 'Chia seeds 5', price: 40.00},  
+ 326:{ id: 326, name: 'Chia seeds 6', price: 42.00},
+ 327:{ id: 327, name: 'Chia seeds 7', price: 40.00},
+ 328:{ id: 328, name: 'Chia seeds 8', price: 42.00},
+ 329:{ id: 329, name: 'Sesame seeds 1',  price: 22.00},
+ 330:{ id: 330, name: 'Sesame seeds 2',  price: 24.00}, 
+ 331:{ id: 331, name: 'Sesame seeds 3',  price: 22.00},
+ 332:{ id: 332, name: 'Sesame seeds 4',  price: 24.00}, 
+ 333:{ id: 333, name: 'Sesame seeds 5',  price: 22.00},
+ 334:{ id: 334, name: 'Sesame seeds 6',  price: 24.00}, 
+ 335:{ id: 335, name: 'Sesame seeds 7',  price: 22.00},
+ 336:{ id: 336, name: 'Sesame seeds 8', price: 24.00}, 
+ 337:{ id: 337, name: 'Pomegranate seeds 1',price: 22.00},
+ 338:{ id: 338, name: 'Pomegranate seeds 2',price: 24.00},  
+ 339:{ id: 339, name: 'Pomegranate seeds 3',price: 22.00},
+ 340:{ id: 340, name: 'Pomegranate seeds 4',price: 24.00},  
+ 341:{ id: 341, name: 'Pomegranate seeds 5',price: 22.00},
+ 342:{ id: 342, name: 'Pomegranate seeds 6',price: 24.00},  
+ 343:{ id: 343, name: 'Pomegranate seeds 7',price: 22.00},
+ 344:{ id: 344, name: 'Pomegranate seeds 8',price: 24.00},  
+ 345:{ id: 345, name: 'PineFlax seeds 1', price: 22.00},
+ 346:{ id: 346, name: 'PineFlax seeds 2', price: 24.00},
+ 347:{ id: 347, name: 'PineFlax seeds 3', price: 22.00},
+ 348:{ id: 348, name: 'PineFlax seeds 4', price: 24.00},
+ 349:{ id: 349, name: 'PineFlax seeds 5', price: 22.00},
+ 350:{ id: 350, name: 'PineFlax seeds 6', price: 24.00 },
+ 351:{ id: 351, name: 'PineFlax seeds 7', price: 22.00},
+ 352:{ id: 352, name: 'PineFlax seeds 8', price: 24.00 },
+ 353:{ id: 353, name: 'Walnuts 1', price: 22.00},
+ 354:{ id: 354, name: 'Walnuts 2', price: 24.00},
+ 355:{ id: 355, name: 'Walnuts 3', price: 22.00},
+ 356:{ id: 356, name: 'Walnuts 4', price: 24.00},
+ 357:{ id: 357, name: 'Walnuts 5', price: 22.00},
+ 358:{ id: 358, name: 'Walnuts 6', price: 24.00},
+ 359:{ id: 359, name: 'Walnuts 7', price: 22.00},
+ 360:{ id: 360, name: 'Walnuts 8', price: 24.00},
+ 361:{ id: 361, name: 'Watermelon seeds 1', price: 22.00 },
+ 362:{ id: 362, name: 'Watermelon seeds 2', price: 24.00},
+ 363:{ id: 363, name: 'Watermelon seeds 3', price: 22.00},
+ 364:{ id: 364, name: 'Watermelon seeds 4', price: 24.00},
+ 365:{ id: 365, name: 'Watermelon seeds 5', price: 22.00},
+ 366:{ id: 366, name: 'Watermelon seeds 6', price: 24.00},
+ 367:{ id: 367, name: 'Watermelon seeds 7', price: 22.00},
+ 368:{ id: 368, name: 'Watermelon seeds 8', price: 24.00},     
+ 
+
+    369:  { id: 369, name: 'Corn Gluten Meal 1', price: 32.00},
+    370:   { id: 370, name: 'Corn Gluten Meal 2', price: 33.00 },
+     371:   { id: 371, name: 'Corn Gluten Meal 3', price: 31.00 },
+     372:   { id: 372, name: 'Corn Gluten Meal 4', price: 38.00},
+     373:   { id: 373, name: 'Corn Gluten Meal 5', price: 39.00 },
+     374:   { id: 374, name: 'Corn Gluten Meal 6', price: 33.00},
+     375:   { id: 375, name: 'Corn Gluten Meal 7', price: 33.00 },
+     376:   { id: 376, name: 'Corn Gluten Meal 8', price: 37.00 },
+     377:{ id: 377, name: 'Cow Manure 1',  price: 25.00},
+     378:   { id: 378, name: 'Cow Manure 2',  price: 26.00},
+     379:   { id: 379, name: 'Cow Manure 3',  price: 25.00  },
+     380:   { id: 380, name: 'Cow Manure 4',  price: 26.00  },
+     381:   { id: 381, name: 'Cow Manure 5',  price: 25.00  },
+     382:   { id: 382, name: 'Cow Manure 6',  price: 26.00  },
+     383:   { id: 383, name: 'Cow Manure 7',  price: 25.00  },
+     384:   { id: 384, name: 'Cow Manure 8',  price: 26.00  },
+     385:{ id: 385, name: ' Chicken Manure  1', price: 40.00  },
+      386:  { id: 386, name: ' Chicken Manure  2', price: 42.00 },
+     387:   { id: 387, name: ' Chicken Manure  3', price: 40.00 },
+     388:   { id: 388, name: ' Chicken Manure  4', price: 42.00 },
+      389:  { id: 389, name: ' Chicken Manure  5', price: 40.00 },
+      390:  { id: 390, name: ' Chicken Manure  6', price: 42.00 },
+      391:  { id: 391, name: ' Chicken Manure  7', price: 40.00 },
+      392:  { id: 392, name: ' Chicken Manure  8', price: 42.00 },
+     393: { id: 393, name: 'Earthworm Castings 1', price: 22.00 },
+      394:  { id: 394, name: 'Earthworm Castings 2', price: 24.00 },
+      395:  { id: 395, name: 'Earthworm Castings 3', price: 22.00 },
+      396:  { id: 396, name: 'Earthworm Castings 4', price: 24.00 },
+      397:  { id: 397, name: 'Earthworm Castings 5', price: 22.00 },
+      398:  { id: 398, name: 'Earthworm Castings 6', price: 24.00 },
+      399:  { id: 399, name: 'Earthworm Castings 7', price: 22.00 },
+      400:  { id: 400, name: 'Earthworm Castings 8', price: 24.00 },
+    401:  { id: 401, name: 'Greensand  1', price: 22.00 },
+       402: { id: 402, name: 'Greensand  2', price: 24.00 },
+      403:  { id: 403, name: 'Greensand  3', price: 22.00 },
+      404:  { id: 404, name: 'Greensand  4', price: 24.00 },
+      405:  { id: 405, name: 'Greensand  5', price: 22.00 },
+      406:  { id: 406, name: 'Greensand  6', price: 24.00 },
+       407: { id: 407, name: 'Greensand  7', price: 22.00 },
+       408: { id: 408, name: 'Greensand  8', price: 24.00}
+
+ 
+        
+        };
+
+        function populateCartItems() {
+            const productList = document.getElementById("product-list");
+            const totalAmountDiv = document.getElementById("total-amount");
+
+            let totalAmount = 0;
+
+            Object.keys(cart).forEach(productId => {
+                const product = products[productId];
+                const quantity = cart[productId];
+                
+                if (product) {
+                    const productDiv = document.createElement("div");
+                    productDiv.classList.add("product");
+
+                    productDiv.innerHTML = `
+                        <img src="https://via.placeholder.com/150" alt="${product.name}">
+                        <div class="product-info">
+                            <h4>${product.name}</h4>
+                            <p>Price: ₹${product.price.toFixed(2)}</p>
+                            <p>Quantity: ${quantity}</p>
+                        </div>
+                    `;
+
+                    productList.appendChild(productDiv);
+                    totalAmount += product.price * quantity;
+                }
+            });
+
+            totalAmountDiv.innerHTML = `<h3>Total Amount: ₹${totalAmount.toFixed(2)}</h3>`;
+        }
+
+        // Call the function to populate the cart items on page load
+        window.onload = populateCartItems;
+    </script>
 </body>
 </html>
